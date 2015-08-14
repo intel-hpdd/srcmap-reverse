@@ -1,0 +1,33 @@
+{
+  "name": "@intel-js/srcmap-reverse",
+  "version": "1.0.0",
+  "description": "Reverses a minified stack trace using a source map.",
+  "main": "index.js",
+  "author": "IML Team",
+  "devDependencies": {
+    "minijasminenodewrap": "1.0.1",
+    "promised-file": "1.0.4",
+    "jscs": "2.1.0",
+    "jshint": "2.8.0",
+    "pre-commit": "1.1.1"
+  },
+  "dependencies": {
+    "source-map": "0.1.38"
+  },
+  "scripts": {
+    "test": "mjnw",
+    "cover": "cover",
+    "jshint": "jshint --c ./.jshintrc --exclude-path ./.jshintignore .",
+    "jscs": "jscs ."
+  },
+  "pre-commit": [
+    "jscs",
+    "jshint",
+    "test"
+  ],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/intel-js/srcmap-reverse.git"
+  },
+  "license": "MIT"
+}
