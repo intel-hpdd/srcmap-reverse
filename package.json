@@ -5,18 +5,18 @@
   "main": "index.js",
   "author": "IML Team",
   "devDependencies": {
-    "minijasminenodewrap": "1.0.1",
-    "promised-file": "1.0.4",
+    "highland": "2.5.1",
+    "jasmine": "2.3.1",
     "jscs": "2.1.0",
     "jshint": "2.8.0",
+    "krusty-jasmine-reporter": "1.0.0",
     "pre-commit": "1.1.1"
   },
   "dependencies": {
     "source-map": "0.1.38"
   },
   "scripts": {
-    "test": "mjnw",
-    "cover": "cover",
+    "test": "JASMINE_CONFIG_PATH=jasmine.json NODE_ENV=test jasmine",
     "jshint": "jshint --c ./.jshintrc --exclude-path ./.jshintignore .",
     "jscs": "jscs ."
   },
@@ -25,9 +25,9 @@
     "jshint",
     "test"
   ],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/intel-js/srcmap-reverse.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intel-js/srcmap-reverse.git"
   },
   "license": "MIT"
 }
