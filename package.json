@@ -1,6 +1,6 @@
 {
   "name": "@intel-js/srcmap-reverse",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Reverses a minified stack trace using a source map.",
   "main": "index.js",
   "author": "IML Team",
