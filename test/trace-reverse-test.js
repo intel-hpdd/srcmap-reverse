@@ -21,7 +21,7 @@ describe('srcmap-reverse unit test', function () {
   var reversedFixture, traceCollection, srcCodeLocation, arr;
 
   beforeEach(function (done) {
-    λ(fs.createReadStream(__dirname + '/fixtures/trace.txt', { encoding: 'utf8', objectMode: true }))
+    λ(fs.createReadStream(__dirname + '/fixtures/trace.txt', {encoding: 'utf8', objectMode: true}))
       .flatMap(buildTraceCollection)
       .stopOnError(done.fail)
       .collect()
@@ -37,16 +37,9 @@ describe('srcmap-reverse unit test', function () {
     }));
   });
 
-  beforeEach(function (done) {
-    var reverser = reverse(srcMap);
-
-    λ([reverser(traceCollection[0].compiledLine)])
-      .stopOnError(done.fail)
-      .map(function (x) {
-        srcCodeLocation = x;
-        arr = x.match(/(\d+):(\d+)/);
-      })
-      .each(done);
+  beforeEach(function () {
+    srcCodeLocation = reverse(srcMap, traceCollection[0].compiledLine);
+    arr = srcCodeLocation.match(/(\d+):(\d+)/);
   });
 
   it('should produce a source code location.', function () {

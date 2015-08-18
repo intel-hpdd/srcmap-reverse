@@ -15,7 +15,7 @@ var handleDone = λ.curry(function handleDone (done, fn, err, x) {
 });
 
 describe('srcmap-reverse integration test', function () {
-  var trace, reversedFixture, reverser;
+  var trace, reversedFixture;
 
   beforeEach(function getTrace (done) {
     readFile(__dirname + '/fixtures/trace.txt', 'utf8', handleDone(done, function assign (err, x) {
@@ -27,12 +27,10 @@ describe('srcmap-reverse integration test', function () {
     readFile(__dirname + '/fixtures/reversed-trace.txt', 'utf8', handleDone(done, function assign (err, x) {
       reversedFixture = x;
     }));
-
-    reverser = reverse(srcMap);
   });
 
   it('should return line and column numbers for each line in a minified stack trace', function () {
-    expect(reverser(trace)).toBe(reversedFixture);
+    expect(reverse(srcMap, trace)).toBe(reversedFixture);
   });
 
   describe('to test support for parellelized deminification', function () {
@@ -44,7 +42,7 @@ describe('srcmap-reverse integration test', function () {
     });
 
     it('should return line and column numbers for a single minified line', function () {
-      expect(reverser(single)).toEqual(fixtureSingle);
+      expect(reverse(srcMap, single)).toEqual(fixtureSingle);
     });
   });
 });
