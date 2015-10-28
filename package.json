@@ -1,5 +1,5 @@
 {
-  "name": "@intel-js/srcmap-reverse",
+  "name": "intel-srcmap-reverse",
   "version": "1.1.1",
   "description": "Reverses a minified stack trace using a source map.",
   "main": "index.js",
@@ -28,7 +28,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/intel-js/srcmap-reverse.git"
+    "url": "https://github.intel.com/IML/srcmap-reverse.git"
+  },
+  "publishConfig": {
+    "registry": "https://ubit-artifactory-or.intel.com/artifactory/api/npm/iml-npm-local"
   },
   "license": "MIT"
 }
