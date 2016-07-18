@@ -1,4 +1,5 @@
 node_modules
-npm-debug.log
-.idea
-*.iml
+*.log
+dist
+.nyc_output
+coverage

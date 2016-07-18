@@ -1,48 +1,48 @@
-'use strict';
+// @flow
 
-var reverse = require('../index');
-var readFile = require('fs').readFile;
-var srcMap = require('./fixtures/built-fd5ce21b.js.map.json');
-var λ = require('highland');
+import {
+  describe,
+  beforeEach,
+  it,
+  expect
+} from './jasmine.js';
 
-var handleDone = λ.curry(function handleDone (done, fn, err, x) {
-  if (err) {
-    done.fail(err);
-  } else {
-    fn(err, x);
-    done();
-  }
-});
+import reverse from '../source/index.js';
+import srcMap from './fixtures/built-fd5ce21b.js.map.json';
+import fs from 'fs';
 
-describe('srcmap-reverse integration test', function () {
+describe('srcmap-reverse integration test', () => {
   var trace, reversedFixture;
 
-  beforeEach(function getTrace (done) {
-    readFile(__dirname + '/fixtures/trace.txt', 'utf8', handleDone(done, function assign (err, x) {
-      trace = x;
-    }));
+  beforeEach(() => {
+    trace = fs
+      .readFileSync(`${__dirname}/fixtures/trace.txt`, 'utf8');
+
+    reversedFixture = fs
+      .readFileSync(`${__dirname}/fixtures/reversed-trace.txt`, 'utf8')
+      .split('\n')
+      .slice(0, -1)
+      .join('\n');
   });
 
-  beforeEach(function getExpectedFile (done) {
-    readFile(__dirname + '/fixtures/reversed-trace.txt', 'utf8', handleDone(done, function assign (err, x) {
-      reversedFixture = x;
-    }));
+  it('should return line and column numbers for each line in a minified stack trace', () => {
+    expect(reverse(srcMap, trace))
+      .toBe(reversedFixture);
   });
 
-  it('should return line and column numbers for each line in a minified stack trace', function () {
-    expect(reverse(srcMap, trace)).toBe(reversedFixture);
-  });
-
-  describe('to test support for parellelized deminification', function () {
+  describe('to test support for parellelized deminification', () => {
     var single, fixtureSingle;
 
-    beforeEach(function () {
-      single = trace.split('\n')[1];
-      fixtureSingle = reversedFixture.split('\n')[0] + '\n';
+    beforeEach(() => {
+      single = trace
+        .split('\n')[1];
+      fixtureSingle = reversedFixture
+        .split('\n')[0];
     });
 
-    it('should return line and column numbers for a single minified line', function () {
-      expect(reverse(srcMap, single)).toEqual(fixtureSingle);
+    it('should return line and column numbers for a single minified line', () => {
+      expect(reverse(srcMap, single))
+        .toEqual(fixtureSingle);
     });
   });
 });
