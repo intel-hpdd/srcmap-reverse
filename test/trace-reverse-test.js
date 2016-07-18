@@ -1,56 +1,42 @@
-'use strict';
+// @flow
 
-var reverse = require('../index');
-var λ = require('highland');
-var fs = require('fs');
-var readFile = fs.readFile;
-var buildTraceCollection = require('../build-trace-collection');
-var srcMap = require('./fixtures/built-fd5ce21b.js.map.json');
+import {
+  describe,
+  beforeEach,
+  it,
+  expect
+} from './jasmine.js';
 
-var handleDone = λ.curry(function handleDone (done, fn, err, x) {
-  if (err) {
-    done.fail(err);
-  } else {
-    fn(err, x);
-    done();
-  }
-});
+import reverse from '../source/index.js';
+import buildTraceCollection from '../source/build-trace-collection.js';
+import fs from 'fs';
 
-describe('srcmap-reverse unit test', function () {
+import srcMap from './fixtures/built-fd5ce21b.js.map.json';
 
-  var reversedFixture, traceCollection, srcCodeLocation, arr;
+describe('srcmap-reverse unit test', () => {
+  let srcCodeLocation, arr;
 
-  beforeEach(function (done) {
-    λ(fs.createReadStream(__dirname + '/fixtures/trace.txt', {encoding: 'utf8', objectMode: true}))
-      .flatMap(buildTraceCollection)
-      .stopOnError(done.fail)
-      .collect()
-      .map(function assign (x) {
-        traceCollection = x;
-      })
-      .each(done);
-  });
+  beforeEach(() => {
+    const trace = fs
+      .readFileSync(`${__dirname}/fixtures/trace.txt`, 'utf8');
+    const traceCollection = buildTraceCollection(trace);
 
-  beforeEach(function (done) {
-    readFile(__dirname + '/fixtures/reversed-trace.txt', 'utf8', handleDone(done, function assign (err, x) {
-      reversedFixture = x;
-    }));
-  });
-
-  beforeEach(function () {
     srcCodeLocation = reverse(srcMap, traceCollection[0].compiledLine);
     arr = srcCodeLocation.match(/(\d+):(\d+)/);
   });
 
-  it('should produce a source code location.', function () {
-    expect(srcCodeLocation.indexOf('dashboard/dashboard-filter-controller.js:161:14') !== -1).toBe(true);
+  it('should produce a source code location.', () => {
+    expect(srcCodeLocation.indexOf('dashboard/dashboard-filter-controller.js:161:14') !== -1)
+      .toBe(true);
   });
 
-  it('should produce a source code location with a line  number.', function () {
-    expect(arr[1]).toBe('161');
+  it('should produce a source code location with a line number.', () => {
+    expect(arr[1])
+      .toBe('161');
   });
 
-  it('should produce a source code location with a column number.', function () {
-    expect(arr[2]).toBe('14');
+  it('should produce a source code location with a column number.', () => {
+    expect(arr[2])
+      .toBe('14');
   });
 });

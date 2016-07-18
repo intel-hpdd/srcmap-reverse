@@ -19,24 +19,19 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-'use strict';
+// @flow
 
-var format = require('util').format;
-var SourceMapConsumer = require('source-map').SourceMapConsumer;
-var buildTraceCollection = require('./build-trace-collection');
+const traceItemRegex = /(http.+):(\d+):(\d+)/;
 
-module.exports = function reverse (srcMap, trace) {
-  var smc = new SourceMapConsumer(srcMap);
-  var opf = smc.originalPositionFor.bind(smc);
-
-  return buildTraceCollection(trace)
-    .map(opf)
-    .map(function prepend (x) {
-      x.name = x.name ? 'at ' + x.name + ' ' : 'at ';
-      return x;
-    })
-    .map(function shape (x) {
-      return format('%s%s:%s:%s\n', x.name, x.source, x.line, x.column);
-    })
-    .join('');
+export default (xs:string) => {
+  return xs
+    .split('\n')
+    .map(x => traceItemRegex.exec(x))
+    .filter(x => x != null)
+    .map(xs => ({
+      compiledLine: xs[0],
+      url: xs[1],
+      line: parseInt(xs[2], 10),
+      column: parseInt(xs[3], 10)
+    }));
 };
