@@ -1,5 +1,5 @@
 {
-  "name": "intel-srcmap-reverse",
+  "name": "@mfl/srcmap-reverse",
   "version": "2.0.0",
   "description": "Reverses a minified stack trace using a source map.",
   "main": "dist/source/index.js",
@@ -16,7 +16,7 @@
     "instrument": false
   },
   "publishConfig": {
-    "registry": "https://ubit-artifactory-or.intel.com/artifactory/api/npm/iml-npm-local"
+    "access": "public"
   },
   "pre-commit": [
     "eslint",
@@ -24,9 +24,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.intel.com/IML/srcmap-reverse.git"
+    "url": "https://github.intel.com/MFL/srcmap-reverse.git"
   },
-  "author": "IML Team",
+  "author": "MFL Team",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "6.10.1",
@@ -40,9 +40,9 @@
     "eslint": "3.0.1",
     "eslint-plugin-flow-vars": "0.4.0",
     "eslint-plugin-flowtype": "2.3.0",
-    "intel-flow-jasmine": "1.1.0",
-    "intel-jasmine-junit-reporter": "1.0.0",
-    "intel-jasmine-n-matchers": "2.1.1",
+    "@mfl/flow-jasmine": "1.1.0",
+    "@mfl/jasmine-junit-reporter": "1.0.0",
+    "@mfl/jasmine-n-matchers": "2.1.1",
     "jasmine": "2.4.1",
     "nyc": "6.6.1",
     "pre-commit": "1.1.3"
