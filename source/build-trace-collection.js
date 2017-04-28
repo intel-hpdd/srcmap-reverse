@@ -1,7 +1,9 @@
+// @flow
+
 //
 // INTEL CONFIDENTIAL
 //
-// Copyright 2013-2014 Intel Corporation All Rights Reserved.
+// Copyright 2013-2017 Intel Corporation All Rights Reserved.
 //
 // The source code contained or described herein and all documents related
 // to the source code ("Material") are owned by Intel Corporation or its
@@ -19,16 +21,16 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-// @flow
-
 const traceItemRegex = /(http.+):(\d+):(\d+)/;
 
-export default (xs:string) => {
+import type { LineData } from './index.js';
+
+export default (xs: string): LineData[] => {
   return xs
     .split('\n')
-    .map(x => traceItemRegex.exec(x))
-    .filter(x => x != null)
-    .map(xs => ({
+    .map((x: string) => traceItemRegex.exec(x))
+    .filter((x: ?(string[])) => x != null)
+    .map((xs: string[]) => ({
       compiledLine: xs[0],
       url: xs[1],
       line: parseInt(xs[2], 10),

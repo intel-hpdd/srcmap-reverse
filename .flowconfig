@@ -1,11 +1,9 @@
 [ignore]
-.*node_modules/babel-.*
-.*node_modules/babylon.*
 
 [include]
 
 [libs]
-node_modules/intel-flow-jasmine/flow-typed
+node_modules/@mfl/flow-jasmine/flow-typed
 
 [options]
 esproposal.class_instance_fields=enable
