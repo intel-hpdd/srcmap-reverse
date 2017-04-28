@@ -2,52 +2,60 @@
   "name": "@mfl/srcmap-reverse",
   "version": "2.0.0",
   "description": "Reverses a minified stack trace using a source map.",
-  "main": "dist/source/index.js",
+  "main": "source/index.js",
   "scripts": {
-    "test:dev": "npm run postversion && npm t",
-    "test": "NODE_ENV=test ./bin/test.js",
-    "cover:dev": "npm run cover -- --reporter=html",
-    "cover": "NODE_ENV=test ./bin/build.sh cover && nyc --reporter=text npm t",
-    "eslint": "eslint ./",
-    "postversion": "./bin/build.sh"
+    "test": "jest",
+    "cover": "NODE_ENV=test npm t -- --coverage",
+    "flow": "flow",
+    "eslint": "eslint ./"
   },
-  "nyc": {
-    "sourceMap": false,
-    "instrument": false
+  "config": {
+    "port": "8082"
   },
   "publishConfig": {
     "access": "public"
   },
   "pre-commit": [
+    "flow",
     "eslint",
-    "test:dev"
+    "test"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.intel.com/MFL/srcmap-reverse.git"
+    "url": "https://github.com/intel-hpdd/srcmap-reverse.git"
+  },
+  "jest": {
+    "resetModules": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "test"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@mfl)/"
+    ]
   },
   "author": "MFL Team",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "6.10.1",
-    "babel-core": "6.10.4",
-    "babel-eslint": "6.1.0",
-    "babel-plugin-__coverage__": "11.0.0",
-    "babel-plugin-transform-flow-strip-types": "6.8.0",
-    "babel-plugin-transform-object-rest-spread": "6.8.0",
-    "babel-plugin-transform-strict-mode": "6.8.0",
-    "babel-preset-es2015": "6.9.0",
-    "eslint": "3.0.1",
-    "eslint-plugin-flow-vars": "0.4.0",
-    "eslint-plugin-flowtype": "2.3.0",
-    "@mfl/flow-jasmine": "1.1.0",
-    "@mfl/jasmine-junit-reporter": "1.0.0",
-    "@mfl/jasmine-n-matchers": "2.1.1",
-    "jasmine": "2.4.1",
-    "nyc": "6.6.1",
-    "pre-commit": "1.1.3"
+    "@mfl/flow-jasmine": "^1.6.0",
+    "@mfl/req": "^3.0.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-env": "^1.4.0",
+    "eslint": "^3.19.0",
+    "eslint-config-prettier": "^1.7.0",
+    "eslint-plugin-flowtype": "^2.32.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-prettier": "^2.0.1",
+    "flow-bin": "^0.44.2",
+    "jasmine": "^2.6.0",
+    "jest": "^19.0.2",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.2.2"
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "highland": "^2.10.5",
     "source-map": "0.5.6"
   }
 }

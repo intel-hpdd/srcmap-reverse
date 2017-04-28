@@ -1,7 +1,9 @@
+// @flow
+
 //
 // INTEL CONFIDENTIAL
 //
-// Copyright 2013-2016 Intel Corporation All Rights Reserved.
+// Copyright 2013-2017 Intel Corporation All Rights Reserved.
 //
 // The source code contained or described herein and all documents related
 // to the source code ("Material") are owned by Intel Corporation or its
@@ -19,24 +21,72 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-// @flow
-
-
-import {
-  SourceMapConsumer
-} from 'source-map';
-
+import { SourceMapConsumer } from 'source-map';
 import buildTraceCollection from './build-trace-collection.js';
+import http from 'http';
+import highland from 'highland';
 
-export default (srcMap, trace) => {
-  var smc = new SourceMapConsumer(srcMap);
+export type LineData = {
+  compiledLine: string,
+  url: string,
+  line: number,
+  column: number
+};
+
+type SrcMap = {
+  version: number,
+  file: string,
+  sources: string[],
+  names: string[],
+  mappings: string,
+  sourceRoot: string,
+  sourcesContent: string[]
+};
+
+type PositionData = {
+  line: number,
+  column: number,
+  source: string,
+  name: string
+};
+
+let server: http.Server;
+
+const srcMapReverse = (srcMap: SrcMap, trace: string) => {
+  const smc = new SourceMapConsumer(srcMap);
 
   return buildTraceCollection(trace)
-    .map(x => smc.originalPositionFor(x))
-    .map(function prepend (x) {
+    .map((x: LineData) => smc.originalPositionFor(x))
+    .map((x: PositionData) => {
       x.name = x.name ? 'at ' + x.name + ' ' : 'at ';
       return x;
     })
-    .map(x  => `${x.name}${x.source}:${x.line}:${x.column}`)
+    .map((x: PositionData) => `${x.name}${x.source}:${x.line}:${x.column}`)
     .join('\n');
+};
+
+export default () => {
+  server = http.createServer(
+    (request: http.IncomingMessage, response: http.ServerResponse) => {
+      const through = highland.pipeline(
+        highland.map(x => x.toString('utf-8')),
+        highland.collect(),
+        highland.map((x: string[]) => x.join('')),
+        highland.map((x: string) => {
+          const {
+            srcMap,
+            trace
+          }: { srcMap: SrcMap, trace: string } = JSON.parse(x);
+          return JSON.stringify(srcMapReverse(srcMap, trace));
+        })
+      );
+
+      request.pipe(through).pipe(response);
+    }
+  );
+
+  const port: number = +process.env.npm_package_config_port;
+  server.listen(port);
+
+  return server;
 };
