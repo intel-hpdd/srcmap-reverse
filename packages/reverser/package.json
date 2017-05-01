@@ -1,0 +1,18 @@
+{
+  "name": "@mfl/srcmap-reverser",
+  "version": "0.0.0",
+  "description": "Reverse a single line using a specified source map.",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "prepublish": "cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js'"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intel-hpdd/srcmap-reverser.git"
+  },
+  "author": "MFL Team",
+  "license": "MIT"
+}

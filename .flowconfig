@@ -4,6 +4,7 @@
 
 [libs]
 node_modules/@mfl/flow-jasmine/flow-typed
+node_modules/@mfl/flow-highland/flow-typed
 
 [options]
 esproposal.class_instance_fields=enable

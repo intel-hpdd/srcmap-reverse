@@ -21,19 +21,34 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-const traceItemRegex = /(http.+):(\d+):(\d+)/;
+import http from 'http';
+import highland from 'highland';
+import reverseInParallel from './reverse-in-parallel.js';
 
-import type { LineData } from './index.js';
+let server: http.Server;
 
-export default (xs: string): LineData[] => {
-  return xs
-    .split('\n')
-    .map((x: string) => traceItemRegex.exec(x))
-    .filter((x: ?(string[])) => x != null)
-    .map((xs: string[]) => ({
-      compiledLine: xs[0],
-      url: xs[1],
-      line: parseInt(xs[2], 10),
-      column: parseInt(xs[3], 10)
-    }));
+export default () => {
+  server = http.createServer(
+    (request: http.IncomingMessage, response: http.ServerResponse) => {
+      const through = highland.pipeline(
+        highland.map(x => x.toString('utf-8')),
+        highland.collect(),
+        highland.map((x: string[]) => x.join('')),
+        highland.flatMap((x: string) => {
+          const { trace }: { trace: string } = JSON.parse(x);
+          return reverseInParallel(trace);
+        }),
+        highland.map(xs => {
+          return JSON.stringify(xs);
+        })
+      );
+
+      request.pipe(through).pipe(response);
+    }
+  );
+
+  const port: number = +process.env.npm_package_config_port;
+  server.listen(port);
+
+  return server;
 };

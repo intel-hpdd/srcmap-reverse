@@ -12,6 +12,12 @@
   dependencies:
     "@mfl/maybe" "3.0.0"
 
+"@mfl/fp@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@mfl/fp/-/fp-8.0.1.tgz#7b4b718551b02b3307639f1c9dd01c12a6de36ec"
+  dependencies:
+    "@mfl/maybe" "3.0.0"
+
 "@mfl/logger@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@mfl/logger/-/logger-1.0.1.tgz#6608d185a6ef8dd2f73f0b118cdd071b3aed64ec"

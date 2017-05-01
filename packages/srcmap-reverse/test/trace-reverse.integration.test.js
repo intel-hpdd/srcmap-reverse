@@ -2,8 +2,7 @@
 
 import { describe, beforeEach, afterEach, it, expect } from './jasmine.js';
 
-import reverse from '../source/index.js';
-import srcMap from './fixtures/built-fd5ce21b.js.map.json';
+import reverse from '../dist/bundle.js';
 import getReq from '@mfl/req';
 import fs from 'fs';
 
@@ -37,7 +36,7 @@ describe('srcmap-reverse integration test', () => {
           Connection: 'close'
         },
         method: 'POST',
-        json: { srcMap, trace },
+        json: { trace },
         path: 'localhost',
         port: 8082
       })
@@ -65,7 +64,7 @@ describe('srcmap-reverse integration test', () => {
             Connection: 'close'
           },
           method: 'POST',
-          json: { srcMap, trace: single },
+          json: { trace: single },
           path: 'localhost',
           port: 8082
         })
