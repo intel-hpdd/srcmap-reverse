@@ -23,15 +23,7 @@
 
 import { SourceMapConsumer } from 'source-map';
 import buildTraceCollection from './build-trace-collection.js';
-import http from 'http';
-import highland from 'highland';
-
-export type LineData = {
-  compiledLine: string,
-  url: string,
-  line: number,
-  column: number
-};
+import { errorLog } from './logger.js';
 
 type SrcMap = {
   version: number,
@@ -43,6 +35,13 @@ type SrcMap = {
   sourcesContent: string[]
 };
 
+export type LineData = {
+  compiledLine: string,
+  url: string,
+  line: number,
+  column: number
+};
+
 type PositionData = {
   line: number,
   column: number,
@@ -50,9 +49,7 @@ type PositionData = {
   name: string
 };
 
-let server: http.Server;
-
-const srcMapReverse = (srcMap: SrcMap, trace: string) => {
+export default (srcMap: SrcMap, trace: string) => {
   const smc = new SourceMapConsumer(srcMap);
 
   return buildTraceCollection(trace)
@@ -63,30 +60,4 @@ const srcMapReverse = (srcMap: SrcMap, trace: string) => {
     })
     .map((x: PositionData) => `${x.name}${x.source}:${x.line}:${x.column}`)
     .join('\n');
-};
-
-export default () => {
-  server = http.createServer(
-    (request: http.IncomingMessage, response: http.ServerResponse) => {
-      const through = highland.pipeline(
-        highland.map(x => x.toString('utf-8')),
-        highland.collect(),
-        highland.map((x: string[]) => x.join('')),
-        highland.map((x: string) => {
-          const {
-            srcMap,
-            trace
-          }: { srcMap: SrcMap, trace: string } = JSON.parse(x);
-          return JSON.stringify(srcMapReverse(srcMap, trace));
-        })
-      );
-
-      request.pipe(through).pipe(response);
-    }
-  );
-
-  const port: number = +process.env.npm_package_config_port;
-  server.listen(port);
-
-  return server;
 };
