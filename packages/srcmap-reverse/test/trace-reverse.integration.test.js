@@ -1,10 +1,7 @@
 // @flow
 
 import { describe, beforeEach, afterEach, it, expect } from './jasmine.js';
-
-const bundleName = '../dist/bundle.js';
-// $FlowFixMe must generate bundle
-const reverse = require(bundleName);
+import reverse from '../dist/bundle.js';
 import getReq from '@mfl/req';
 import fs from 'fs';
 
