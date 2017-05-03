@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@mfl/flow-highland@^4.2.0", "@mfl/flow-highland@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@mfl/flow-highland/-/flow-highland-4.2.1.tgz#da6c31623f5a1143240aeba41a0025f9fbaf7200"
+"@mfl/flow-highland@4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@mfl/flow-highland/-/flow-highland-4.2.3.tgz#afcf16df570429896dfee57223621bbc240955eb"
 
 "@mfl/flow-jasmine@^1.6.0":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@mfl/flow-jasmine/-/flow-jasmine-1.6.1.tgz#ddf955193823af50f2180fc613e81cf7fbde2043"
 
-"@mfl/fp@8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@mfl/fp/-/fp-8.0.0.tgz#8f25255ccb73cb7d6fe0e047108cb93aa902fff7"
+"@mfl/fp@8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@mfl/fp/-/fp-8.0.1.tgz#7b4b718551b02b3307639f1c9dd01c12a6de36ec"
   dependencies:
     "@mfl/maybe" "3.0.0"
 
@@ -26,12 +26,12 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@mfl/maybe/-/maybe-3.0.0.tgz#184d40305afb14011eb9008677771c14d07d98fd"
 
-"@mfl/req@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@mfl/req/-/req-3.0.3.tgz#7d831b87464cb0d4d52e2a4beda79d9331606d11"
+"@mfl/req@3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@mfl/req/-/req-3.0.4.tgz#40f547c5c7a476dd4f1429390d42d5634ee561ad"
   dependencies:
-    "@mfl/flow-highland" "^4.2.0"
-    "@mfl/fp" "8.0.0"
+    "@mfl/flow-highland" "4.2.3"
+    "@mfl/fp" "8.0.1"
     highland "3.0.0-beta.4"
     json-mask "0.3.8"
 
