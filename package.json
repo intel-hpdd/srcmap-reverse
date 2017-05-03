@@ -6,7 +6,7 @@
     "cover": "NODE_ENV=test npm t -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
-    "prepublish": "yarn run bootstrap",
+    "postversion": "yarn run bootstrap",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean; rm -rf packages/srcmap-reverse/dist; rm -rf packages/srcmap-reverser/dist",
     "rollup": "rollup -c rollup-config.js"
