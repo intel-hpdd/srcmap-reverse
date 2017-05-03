@@ -21,10 +21,19 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-import highland from 'highland';
-import reverser from './reverser';
+const traceItemRegex = /(http.+):(\d+):(\d+)/;
 
-highland(process.stdin)
-  .otherwise(highland(['']))
-  .through(reverser)
-  .pipe(process.stdout);
+import type { LineData } from './src-map-reverse.js';
+
+export default (xs: string): LineData[] => {
+  return xs
+    .split('\n')
+    .map((x: string) => traceItemRegex.exec(x))
+    .filter((x: ?(string[])) => x != null)
+    .map(([compiledLine, url, line, column]: string[]) => ({
+      compiledLine,
+      url,
+      line: parseInt(line, 10),
+      column: parseInt(column, 10)
+    }));
+};

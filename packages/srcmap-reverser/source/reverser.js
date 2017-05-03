@@ -21,19 +21,24 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-const traceItemRegex = /(http.+):(\d+):(\d+)/;
+import { createReadStream } from 'fs';
+import srcmapReverse from './src-map-reverse.js';
+import highland from 'highland';
 
-import type { LineData } from './src-map-reverse.js';
+import type { HighlandStreamT } from 'highland';
+import type { Readable } from 'stream';
 
-export default (xs: string): LineData[] => {
-  return xs
-    .split('\n')
-    .map((x: string) => traceItemRegex.exec(x))
-    .filter((x: ?(string[])) => x != null)
-    .map((xs: string[]) => ({
-      compiledLine: xs[0],
-      url: xs[1],
-      line: parseInt(xs[2], 10),
-      column: parseInt(xs[3], 10)
-    }));
+const srcMapFile: string = process.env.npm_package_config_srcMapFile
+  ? process.env.npm_package_config_srcMapFile
+  : '';
+
+const sourceMapStream = highland(
+  (createReadStream(`${__dirname}/..${srcMapFile}`): Readable)
+);
+
+export default (s: HighlandStreamT<string>) => {
+  return highland([sourceMapStream, s])
+    .flatMap(s => s.map(x => x.toString('utf8')).collect().map(x => x.join('')))
+    .collect()
+    .map(([srcMap, traceLine]) => srcmapReverse(srcMap, traceLine));
 };
