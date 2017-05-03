@@ -31,9 +31,9 @@
   },
   "author": "MFL Team",
   "devDependencies": {
-    "@mfl/flow-highland": "^4.2.1",
+    "@mfl/flow-highland": "4.2.3",
     "@mfl/flow-jasmine": "^1.6.0",
-    "@mfl/req": "^3.0.3",
+    "@mfl/req": "3.0.4",
     "babel-eslint": "^7.2.3",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
