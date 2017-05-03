@@ -4,5 +4,4 @@ node_modules
 /packages/srcmap-reverse/dist
 /packages/srcmap-reverser/dist
 .log
-.yarnclean
 
