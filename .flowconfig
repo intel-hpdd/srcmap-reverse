@@ -10,3 +10,4 @@ node_modules/@mfl/flow-highland/flow-typed
 [options]
 esproposal.class_instance_fields=enable
 experimental.strict_type_args=true
+module.name_mapper='^.*dist\/bundle\.js$' -> '<PROJECT_ROOT>/fake-dist.js'
