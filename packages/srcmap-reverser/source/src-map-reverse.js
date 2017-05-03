@@ -24,16 +24,6 @@
 import { SourceMapConsumer } from 'source-map';
 import buildTraceCollection from './build-trace-collection.js';
 
-type SrcMap = {
-  version: number,
-  file: string,
-  sources: string[],
-  names: string[],
-  mappings: string,
-  sourceRoot: string,
-  sourcesContent: string[]
-};
-
 export type LineData = {
   compiledLine: string,
   url: string,
