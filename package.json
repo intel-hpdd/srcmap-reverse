@@ -23,7 +23,8 @@
     "resetModules": true,
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "test"
+      "test",
+      "dist"
     ],
     "transformIgnorePatterns": [
       "/node_modules/(?!@mfl)/"
