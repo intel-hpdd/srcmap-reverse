@@ -2,7 +2,7 @@
   "description": "Reverses a minified stack trace using a source map.",
   "private": true,
   "scripts": {
-    "test": "yarn run bootstrap; jest",
+    "test": "jest",
     "cover": "NODE_ENV=test npm t -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
