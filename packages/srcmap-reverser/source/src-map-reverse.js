@@ -3,7 +3,7 @@
 //
 // INTEL CONFIDENTIAL
 //
-// Copyright 2013-2016 Intel Corporation All Rights Reserved.
+// Copyright 2013-2017 Intel Corporation All Rights Reserved.
 //
 // The source code contained or described herein and all documents related
 // to the source code ("Material") are owned by Intel Corporation or its
@@ -21,27 +21,42 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-'use strict';
+import { SourceMapConsumer } from 'source-map';
+import buildTraceCollection from './build-trace-collection.js';
 
-import { createReadStream } from 'fs';
-import srcmapReverse from './src-map-reverse.js';
-import highland from 'highland';
+type SrcMap = {
+  version: number,
+  file: string,
+  sources: string[],
+  names: string[],
+  mappings: string,
+  sourceRoot: string,
+  sourcesContent: string[]
+};
 
-import type { HighlandStream } from 'highland';
+export type LineData = {
+  compiledLine: string,
+  url: string,
+  line: number,
+  column: number
+};
 
-const srcMapFile: string = process.env.npm_package_config_srcMapFile
-  ? process.env.npm_package_config_srcMapFile
-  : '';
+type PositionData = {
+  line: number,
+  column: number,
+  source: string,
+  name: string
+};
 
-const sourceMapStream = highland(
-  createReadStream(`${__dirname}/..${srcMapFile}`)
-);
+export default (srcMap: string, trace: string) => {
+  const smc = new SourceMapConsumer(srcMap);
 
-export default (s: HighlandStream<string>) => {
-  return highland([sourceMapStream, s])
-    .flatMap(s => {
-      return s.map(x => x.toString('utf8')).collect().map(x => x.join(''));
+  return buildTraceCollection(trace)
+    .map(smc.originalPositionFor.bind(smc))
+    .map((x: PositionData) => {
+      x.name = x.name ? 'at ' + x.name + ' ' : 'at ';
+      return x;
     })
-    .collect()
-    .map(([srcMap, traceLine]) => srcmapReverse(srcMap, traceLine));
+    .map((x: PositionData) => `${x.name}${x.source}:${x.line}:${x.column}`)
+    .join('\n');
 };

@@ -11,420 +11,110 @@
 10 silly execute attempt
 11 info Bootstrapping 2 packages
 12 info lifecycle preinstall
-13 silly runScript preinstall reverser
-14 silly reverser
+13 silly runScript preinstall @mfl/srcmap-reverser
+14 silly @mfl/srcmap-reverser
 15 silly runScript preinstall @mfl/srcmap-reverse
 16 silly @mfl/srcmap-reverse
-17 silly hasDependencyInstalled @mfl/srcmap-reverse @mfl/flow-jasmine
-18 silly dependencyIsSatisfied [ '@mfl/flow-jasmine',
-18 silly dependencyIsSatisfied   '^1.6.0',
-18 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-19 verbose dependencyIsSatisfied @mfl/flow-jasmine false
-20 silly hasDependencyInstalled @mfl/srcmap-reverse @mfl/req
-21 silly dependencyIsSatisfied [ '@mfl/req',
-21 silly dependencyIsSatisfied   '^3.0.2',
-21 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-22 verbose dependencyIsSatisfied @mfl/req false
-23 silly hasDependencyInstalled @mfl/srcmap-reverse babel-eslint
-24 silly dependencyIsSatisfied [ 'babel-eslint',
-24 silly dependencyIsSatisfied   '^7.2.3',
-24 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-25 verbose dependencyIsSatisfied babel-eslint false
-26 silly hasDependencyInstalled @mfl/srcmap-reverse babel-plugin-external-helpers
-27 silly dependencyIsSatisfied [ 'babel-plugin-external-helpers',
-27 silly dependencyIsSatisfied   '^6.22.0',
-27 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-28 verbose dependencyIsSatisfied babel-plugin-external-helpers false
-29 silly hasDependencyInstalled @mfl/srcmap-reverse babel-plugin-transform-flow-strip-types
-30 silly dependencyIsSatisfied [ 'babel-plugin-transform-flow-strip-types',
-30 silly dependencyIsSatisfied   '^6.22.0',
-30 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-31 verbose dependencyIsSatisfied babel-plugin-transform-flow-strip-types false
-32 silly hasDependencyInstalled @mfl/srcmap-reverse babel-preset-env
-33 silly dependencyIsSatisfied [ 'babel-preset-env',
-33 silly dependencyIsSatisfied   '^1.4.0',
-33 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-34 verbose dependencyIsSatisfied babel-preset-env false
-35 silly hasDependencyInstalled @mfl/srcmap-reverse eslint
-36 silly dependencyIsSatisfied [ 'eslint',
-36 silly dependencyIsSatisfied   '^3.19.0',
-36 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-37 verbose dependencyIsSatisfied eslint false
-38 silly hasDependencyInstalled @mfl/srcmap-reverse eslint-config-prettier
-39 silly dependencyIsSatisfied [ 'eslint-config-prettier',
-39 silly dependencyIsSatisfied   '^1.7.0',
-39 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-40 verbose dependencyIsSatisfied eslint-config-prettier false
-41 silly hasDependencyInstalled @mfl/srcmap-reverse eslint-plugin-flowtype
-42 silly dependencyIsSatisfied [ 'eslint-plugin-flowtype',
-42 silly dependencyIsSatisfied   '^2.32.1',
-42 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-43 verbose dependencyIsSatisfied eslint-plugin-flowtype false
-44 silly hasDependencyInstalled @mfl/srcmap-reverse eslint-plugin-import
-45 silly dependencyIsSatisfied [ 'eslint-plugin-import',
-45 silly dependencyIsSatisfied   '^2.2.0',
-45 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-46 verbose dependencyIsSatisfied eslint-plugin-import false
-47 silly hasDependencyInstalled @mfl/srcmap-reverse eslint-plugin-prettier
-48 silly dependencyIsSatisfied [ 'eslint-plugin-prettier',
-48 silly dependencyIsSatisfied   '^2.0.1',
-48 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-49 verbose dependencyIsSatisfied eslint-plugin-prettier false
-50 silly hasDependencyInstalled @mfl/srcmap-reverse flow-bin
-51 silly dependencyIsSatisfied [ 'flow-bin',
-51 silly dependencyIsSatisfied   '^0.45.0',
-51 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-52 verbose dependencyIsSatisfied flow-bin false
-53 silly hasDependencyInstalled @mfl/srcmap-reverse jasmine
-54 silly dependencyIsSatisfied [ 'jasmine',
-54 silly dependencyIsSatisfied   '^2.6.0',
-54 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-55 verbose dependencyIsSatisfied jasmine false
-56 silly hasDependencyInstalled @mfl/srcmap-reverse jest
-57 silly dependencyIsSatisfied [ 'jest',
-57 silly dependencyIsSatisfied   '^19.0.2',
-57 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-58 verbose dependencyIsSatisfied jest false
-59 silly hasDependencyInstalled @mfl/srcmap-reverse lerna
-60 silly dependencyIsSatisfied [ 'lerna',
-60 silly dependencyIsSatisfied   '^2.0.0-rc.4',
-60 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-61 verbose dependencyIsSatisfied lerna false
-62 silly hasDependencyInstalled @mfl/srcmap-reverse pre-commit
-63 silly dependencyIsSatisfied [ 'pre-commit',
-63 silly dependencyIsSatisfied   '^1.2.2',
-63 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-64 verbose dependencyIsSatisfied pre-commit false
-65 silly hasDependencyInstalled @mfl/srcmap-reverse prettier
-66 silly dependencyIsSatisfied [ 'prettier',
-66 silly dependencyIsSatisfied   '^1.2.2',
-66 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-67 verbose dependencyIsSatisfied prettier false
-68 silly hasDependencyInstalled @mfl/srcmap-reverse rollup-plugin-babel
-69 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
-69 silly dependencyIsSatisfied   '^2.7.1',
-69 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-70 verbose dependencyIsSatisfied rollup-plugin-babel false
-71 silly hasDependencyInstalled @mfl/srcmap-reverse rollup-plugin-cleanup
-72 silly dependencyIsSatisfied [ 'rollup-plugin-cleanup',
-72 silly dependencyIsSatisfied   '^1.0.0',
-72 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-73 verbose dependencyIsSatisfied rollup-plugin-cleanup false
-74 silly hasDependencyInstalled @mfl/srcmap-reverse rollup-plugin-commonjs
-75 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
-75 silly dependencyIsSatisfied   '^8.0.2',
-75 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-76 verbose dependencyIsSatisfied rollup-plugin-commonjs false
-77 silly hasDependencyInstalled @mfl/srcmap-reverse rollup-plugin-json
-78 silly dependencyIsSatisfied [ 'rollup-plugin-json',
-78 silly dependencyIsSatisfied   '^2.1.1',
-78 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-79 verbose dependencyIsSatisfied rollup-plugin-json false
-80 silly hasDependencyInstalled @mfl/srcmap-reverse rollup-plugin-node-resolve
-81 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
-81 silly dependencyIsSatisfied   '^3.0.0',
-81 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-82 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
-83 silly hasDependencyInstalled @mfl/srcmap-reverse @mfl/fp
-84 silly dependencyIsSatisfied [ '@mfl/fp',
-84 silly dependencyIsSatisfied   '^8.0.1',
-84 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-85 verbose dependencyIsSatisfied @mfl/fp false
-86 silly hasDependencyInstalled @mfl/srcmap-reverse @mfl/logger
-87 silly dependencyIsSatisfied [ '@mfl/logger',
-87 silly dependencyIsSatisfied   '^1.0.1',
-87 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-88 verbose dependencyIsSatisfied @mfl/logger false
-89 silly hasDependencyInstalled @mfl/srcmap-reverse babel-plugin-transform-object-rest-spread
-90 silly dependencyIsSatisfied [ 'babel-plugin-transform-object-rest-spread',
-90 silly dependencyIsSatisfied   '^6.23.0',
-90 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-91 verbose dependencyIsSatisfied babel-plugin-transform-object-rest-spread false
-92 silly hasDependencyInstalled @mfl/srcmap-reverse highland
-93 silly dependencyIsSatisfied [ 'highland',
-93 silly dependencyIsSatisfied   '^2.10.5',
-93 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-94 verbose dependencyIsSatisfied highland false
-95 silly hasDependencyInstalled @mfl/srcmap-reverse source-map
-96 silly dependencyIsSatisfied [ 'source-map',
-96 silly dependencyIsSatisfied   '0.5.6',
-96 silly dependencyIsSatisfied   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/node_modules' ]
-97 verbose dependencyIsSatisfied source-map false
-98 silly root dependencies []
-99 silly leaf dependencies {
-99 silly leaf dependencies   "@mfl/srcmap-reverse": [
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "@mfl/flow-jasmine@^1.6.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "@mfl/req@^3.0.2",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "babel-eslint@^7.2.3",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "babel-plugin-external-helpers@^6.22.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "babel-plugin-transform-flow-strip-types@^6.22.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "babel-preset-env@^1.4.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "eslint@^3.19.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "eslint-config-prettier@^1.7.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "eslint-plugin-flowtype@^2.32.1",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "eslint-plugin-import@^2.2.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "eslint-plugin-prettier@^2.0.1",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "flow-bin@^0.45.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "jasmine@^2.6.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "jest@^19.0.2",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "lerna@^2.0.0-rc.4",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "pre-commit@^1.2.2",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "prettier@^1.2.2",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "rollup-plugin-babel@^2.7.1",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "rollup-plugin-cleanup@^1.0.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^8.0.2",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "rollup-plugin-json@^2.1.1",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.0.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "@mfl/fp@^8.0.1",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "@mfl/logger@^1.0.1",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "babel-plugin-transform-object-rest-spread@^6.23.0",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "highland@^2.10.5",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     },
-99 silly leaf dependencies     {
-99 silly leaf dependencies       "dependency": "source-map@0.5.6",
-99 silly leaf dependencies       "isSatisfied": false
-99 silly leaf dependencies     }
-99 silly leaf dependencies   ]
-99 silly leaf dependencies }
-100 info Installing external dependencies
-101 verbose actions 1 actions, concurrency 4
-102 silly installInDir srcmap-reverse [ '@mfl/flow-jasmine@^1.6.0',
-102 silly installInDir   '@mfl/req@^3.0.2',
-102 silly installInDir   'babel-eslint@^7.2.3',
-102 silly installInDir   'babel-plugin-external-helpers@^6.22.0',
-102 silly installInDir   'babel-plugin-transform-flow-strip-types@^6.22.0',
-102 silly installInDir   'babel-preset-env@^1.4.0',
-102 silly installInDir   'eslint@^3.19.0',
-102 silly installInDir   'eslint-config-prettier@^1.7.0',
-102 silly installInDir   'eslint-plugin-flowtype@^2.32.1',
-102 silly installInDir   'eslint-plugin-import@^2.2.0',
-102 silly installInDir   'eslint-plugin-prettier@^2.0.1',
-102 silly installInDir   'flow-bin@^0.45.0',
-102 silly installInDir   'jasmine@^2.6.0',
-102 silly installInDir   'jest@^19.0.2',
-102 silly installInDir   'lerna@^2.0.0-rc.4',
-102 silly installInDir   'pre-commit@^1.2.2',
-102 silly installInDir   'prettier@^1.2.2',
-102 silly installInDir   'rollup-plugin-babel@^2.7.1',
-102 silly installInDir   'rollup-plugin-cleanup@^1.0.0',
-102 silly installInDir   'rollup-plugin-commonjs@^8.0.2',
-102 silly installInDir   'rollup-plugin-json@^2.1.1',
-102 silly installInDir   'rollup-plugin-node-resolve@^3.0.0',
-102 silly installInDir   '@mfl/fp@^8.0.1',
-102 silly installInDir   '@mfl/logger@^1.0.1',
-102 silly installInDir   'babel-plugin-transform-object-rest-spread@^6.23.0',
-102 silly installInDir   'highland@^2.10.5',
-102 silly installInDir   'source-map@0.5.6' ]
-103 silly installInDir backup /Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/package.json
-104 silly rename [ '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/package.json',
-104 silly rename   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/package.json.lerna_backup' ]
-105 silly installInDir writing tempJson { dependencies:
-105 silly installInDir    { '@mfl/flow-jasmine': '^1.6.0',
-105 silly installInDir      '@mfl/req': '^3.0.2',
-105 silly installInDir      'babel-eslint': '^7.2.3',
-105 silly installInDir      'babel-plugin-external-helpers': '^6.22.0',
-105 silly installInDir      'babel-plugin-transform-flow-strip-types': '^6.22.0',
-105 silly installInDir      'babel-preset-env': '^1.4.0',
-105 silly installInDir      eslint: '^3.19.0',
-105 silly installInDir      'eslint-config-prettier': '^1.7.0',
-105 silly installInDir      'eslint-plugin-flowtype': '^2.32.1',
-105 silly installInDir      'eslint-plugin-import': '^2.2.0',
-105 silly installInDir      'eslint-plugin-prettier': '^2.0.1',
-105 silly installInDir      'flow-bin': '^0.45.0',
-105 silly installInDir      jasmine: '^2.6.0',
-105 silly installInDir      jest: '^19.0.2',
-105 silly installInDir      lerna: '^2.0.0-rc.4',
-105 silly installInDir      'pre-commit': '^1.2.2',
-105 silly installInDir      prettier: '^1.2.2',
-105 silly installInDir      'rollup-plugin-babel': '^2.7.1',
-105 silly installInDir      'rollup-plugin-cleanup': '^1.0.0',
-105 silly installInDir      'rollup-plugin-commonjs': '^8.0.2',
-105 silly installInDir      'rollup-plugin-json': '^2.1.1',
-105 silly installInDir      'rollup-plugin-node-resolve': '^3.0.0',
-105 silly installInDir      '@mfl/fp': '^8.0.1',
-105 silly installInDir      '@mfl/logger': '^1.0.1',
-105 silly installInDir      'babel-plugin-transform-object-rest-spread': '^6.23.0',
-105 silly installInDir      highland: '^2.10.5',
-105 silly installInDir      'source-map': '0.5.6' } }
-106 silly getExecOpts { cwd: '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse' }
-107 silly installInDir [ 'yarn', [ 'install', '--mutex', 'network:42424' ] ]
-108 silly installInDir cleanup /Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/package.json
-109 silly renameSync [ '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/package.json.lerna_backup',
-109 silly renameSync   '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse/package.json' ]
-110 verbose installed leaf @mfl/srcmap-reverse
-111 info Symlinking packages and binaries
-112 silly packageActions finished reverser
-113 silly packageActions finished @mfl/srcmap-reverse
-114 info lifecycle postinstall
-115 silly runScript postinstall reverser
-116 silly reverser
-117 silly runScript postinstall @mfl/srcmap-reverse
-118 silly @mfl/srcmap-reverse
-119 info lifecycle prepublish
-120 silly runScript prepublish reverser
-121 silly runScriptInDir prepublish [] reverser
-122 silly getExecOpts { cwd: '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser' }
-123 silly runScript prepublish @mfl/srcmap-reverse
-124 silly runScriptInDir prepublish [] srcmap-reverse
-125 silly getExecOpts { cwd: '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse' }
-126 silly reverser
-127 error execute Error: Command failed: npm run prepublish
-127 error execute Error: Cannot find module 'rollup-plugin-babel'
-127 error execute
-127 error execute error Command failed with exit code 1.
-127 error execute
-127 error execute npm ERR! Darwin 16.5.0
-127 error execute npm ERR! argv "/Users/wcjohnso/.nvm/versions/node/v6.9.4/bin/node" "/Users/wcjohnso/node_modules/.bin/npm" "run" "prepublish"
-127 error execute npm ERR! node v6.9.4
-127 error execute npm ERR! npm  v3.5.2
-127 error execute npm ERR! code ELIFECYCLE
-127 error execute npm ERR! reverser@ prepublish: `cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js'`
-127 error execute npm ERR! Exit status 1
-127 error execute npm ERR!
-127 error execute npm ERR! Failed at the reverser@ prepublish script 'cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js''.
-127 error execute npm ERR! Make sure you have the latest version of node.js and npm installed.
-127 error execute npm ERR! If you do, this is most likely a problem with the reverser package,
-127 error execute npm ERR! not with npm itself.
-127 error execute npm ERR! Tell the author that this fails on your system:
-127 error execute npm ERR!     cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js'
-127 error execute npm ERR! You can get information on how to open an issue for this project with:
-127 error execute npm ERR!     npm bugs reverser
-127 error execute npm ERR! Or if that isn't available, you can get their info via:
-127 error execute npm ERR!     npm owner ls reverser
-127 error execute npm ERR! There is likely additional logging output above.
-127 error execute
-127 error execute npm ERR! Please include the following file with any support request:
-127 error execute npm ERR!     /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/npm-debug.log
-127 error execute
-127 error execute > reverser@ prepublish /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser
-127 error execute > cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js'
-127 error execute
-127 error execute yarn run v0.22.0
-127 error execute $ rollup -c rollup-config.js --input=packages/reverser/source/index.js --output=packages/reverser/dist/bundle.js
-127 error execute info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
-127 error execute
-127 error execute     at Promise.all.then.arr (/Users/wcjohnso/.nvm/versions/node/v6.9.4/lib/node_modules/lerna/node_modules/execa/index.js:210:11)
-127 error execute     at process._tickCallback (internal/process/next_tick.js:103:7)
-127 error execute  callback with error
-127 error execute  { Error: Command failed: npm run prepublish
-127 error execute Error: Cannot find module 'rollup-plugin-babel'
-127 error execute
-127 error execute error Command failed with exit code 1.
-127 error execute
-127 error execute npm ERR! Darwin 16.5.0
-127 error execute npm ERR! argv "/Users/wcjohnso/.nvm/versions/node/v6.9.4/bin/node" "/Users/wcjohnso/node_modules/.bin/npm" "run" "prepublish"
-127 error execute npm ERR! node v6.9.4
-127 error execute npm ERR! npm  v3.5.2
-127 error execute npm ERR! code ELIFECYCLE
-127 error execute npm ERR! reverser@ prepublish: `cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js'`
-127 error execute npm ERR! Exit status 1
-127 error execute npm ERR!
-127 error execute npm ERR! Failed at the reverser@ prepublish script 'cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js''.
-127 error execute npm ERR! Make sure you have the latest version of node.js and npm installed.
-127 error execute npm ERR! If you do, this is most likely a problem with the reverser package,
-127 error execute npm ERR! not with npm itself.
-127 error execute npm ERR! Tell the author that this fails on your system:
-127 error execute npm ERR!     cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js'
-127 error execute npm ERR! You can get information on how to open an issue for this project with:
-127 error execute npm ERR!     npm bugs reverser
-127 error execute npm ERR! Or if that isn't available, you can get their info via:
-127 error execute npm ERR!     npm owner ls reverser
-127 error execute npm ERR! There is likely additional logging output above.
-127 error execute
-127 error execute npm ERR! Please include the following file with any support request:
-127 error execute npm ERR!     /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/npm-debug.log
-127 error execute
-127 error execute > reverser@ prepublish /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser
-127 error execute > cd ../.. && yarn run rollup -- --input='packages/reverser/source/index.js' --output='packages/reverser/dist/bundle.js'
-127 error execute
-127 error execute yarn run v0.22.0
-127 error execute $ rollup -c rollup-config.js --input=packages/reverser/source/index.js --output=packages/reverser/dist/bundle.js
-127 error execute info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
-127 error execute
-127 error execute     at Promise.all.then.arr (/Users/wcjohnso/.nvm/versions/node/v6.9.4/lib/node_modules/lerna/node_modules/execa/index.js:210:11)
-127 error execute     at process._tickCallback (internal/process/next_tick.js:103:7)
-127 error execute   code: 1,
-127 error execute   killed: false,
-127 error execute   stdout: '\n> reverser@ prepublish /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser\n> cd ../.. && yarn run rollup -- --input=\'packages/reverser/source/index.js\' --output=\'packages/reverser/dist/bundle.js\'\n\nyarn run v0.22.0\n$ rollup -c rollup-config.js --input=packages/reverser/source/index.js --output=packages/reverser/dist/bundle.js\ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n',
-127 error execute   stderr: 'Error: Cannot find module \'rollup-plugin-babel\'\n\nerror Command failed with exit code 1.\n\nnpm ERR! Darwin 16.5.0\nnpm ERR! argv "/Users/wcjohnso/.nvm/versions/node/v6.9.4/bin/node" "/Users/wcjohnso/node_modules/.bin/npm" "run" "prepublish"\nnpm ERR! node v6.9.4\nnpm ERR! npm  v3.5.2\nnpm ERR! code ELIFECYCLE\nnpm ERR! reverser@ prepublish: `cd ../.. && yarn run rollup -- --input=\'packages/reverser/source/index.js\' --output=\'packages/reverser/dist/bundle.js\'`\nnpm ERR! Exit status 1\nnpm ERR! \nnpm ERR! Failed at the reverser@ prepublish script \'cd ../.. && yarn run rollup -- --input=\'packages/reverser/source/index.js\' --output=\'packages/reverser/dist/bundle.js\'\'.\nnpm ERR! Make sure you have the latest version of node.js and npm installed.\nnpm ERR! If you do, this is most likely a problem with the reverser package,\nnpm ERR! not with npm itself.\nnpm ERR! Tell the author that this fails on your system:\nnpm ERR!     cd ../.. && yarn run rollup -- --input=\'packages/reverser/source/index.js\' --output=\'packages/reverser/dist/bundle.js\'\nnpm ERR! You can get information on how to open an issue for this project with:\nnpm ERR!     npm bugs reverser\nnpm ERR! Or if that isn\'t available, you can get their info via:\nnpm ERR!     npm owner ls reverser\nnpm ERR! There is likely additional logging output above.\n\nnpm ERR! Please include the following file with any support request:\nnpm ERR!     /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/npm-debug.log\n',
-127 error execute   failed: true,
-127 error execute   signal: null,
-127 error execute   cmd: 'npm run prepublish',
-127 error execute   timedOut: false }
+17 silly root dependencies []
+18 silly leaf dependencies {}
+19 info Symlinking packages and binaries
+20 silly packageActions finished @mfl/srcmap-reverser
+21 silly packageActions finished @mfl/srcmap-reverse
+22 info lifecycle postinstall
+23 silly runScript postinstall @mfl/srcmap-reverser
+24 silly @mfl/srcmap-reverser
+25 silly runScript postinstall @mfl/srcmap-reverse
+26 silly @mfl/srcmap-reverse
+27 info lifecycle prepublish
+28 silly runScript prepublish @mfl/srcmap-reverser
+29 silly runScriptInDir prepublish [] reverser
+30 silly getExecOpts { cwd: '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser' }
+31 silly runScript prepublish @mfl/srcmap-reverse
+32 silly runScriptInDir prepublish [] srcmap-reverse
+33 silly getExecOpts { cwd: '/Users/wcjohnso/projects/intel/srcmap-reverse/packages/srcmap-reverse' }
+34 silly @mfl/srcmap-reverser
+35 error execute Error: Command failed: npm run prepublish
+35 error execute Error: You must specify an --input (-i) option
+35 error execute
+35 error execute error Command failed with exit code 1.
+35 error execute chmod: /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/dist/bundle.js: No such file or directory
+35 error execute
+35 error execute npm ERR! Darwin 16.5.0
+35 error execute npm ERR! argv "/Users/wcjohnso/.nvm/versions/node/v6.9.4/bin/node" "/Users/wcjohnso/node_modules/.bin/npm" "run" "prepublish"
+35 error execute npm ERR! node v6.9.4
+35 error execute npm ERR! npm  v3.5.2
+35 error execute npm ERR! code ELIFECYCLE
+35 error execute npm ERR! @mfl/srcmap-reverser@0.0.0 prepublish: `old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main`
+35 error execute npm ERR! Exit status 1
+35 error execute npm ERR!
+35 error execute npm ERR! Failed at the @mfl/srcmap-reverser@0.0.0 prepublish script 'old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main'.
+35 error execute npm ERR! Make sure you have the latest version of node.js and npm installed.
+35 error execute npm ERR! If you do, this is most likely a problem with the @mfl/srcmap-reverser package,
+35 error execute npm ERR! not with npm itself.
+35 error execute npm ERR! Tell the author that this fails on your system:
+35 error execute npm ERR!     old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main
+35 error execute npm ERR! You can get information on how to open an issue for this project with:
+35 error execute npm ERR!     npm bugs @mfl/srcmap-reverser
+35 error execute npm ERR! Or if that isn't available, you can get their info via:
+35 error execute npm ERR!     npm owner ls @mfl/srcmap-reverser
+35 error execute npm ERR! There is likely additional logging output above.
+35 error execute
+35 error execute npm ERR! Please include the following file with any support request:
+35 error execute npm ERR!     /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/npm-debug.log
+35 error execute
+35 error execute > @mfl/srcmap-reverser@0.0.0 prepublish /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser
+35 error execute > old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main
+35 error execute
+35 error execute yarn run v0.22.0
+35 error execute $ rollup -c rollup-config.js
+35 error execute info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+35 error execute
+35 error execute     at Promise.all.then.arr (/Users/wcjohnso/projects/intel/srcmap-reverse/node_modules/execa/index.js:210:11)
+35 error execute     at process._tickCallback (internal/process/next_tick.js:103:7)
+35 error execute  callback with error
+35 error execute  { Error: Command failed: npm run prepublish
+35 error execute Error: You must specify an --input (-i) option
+35 error execute
+35 error execute error Command failed with exit code 1.
+35 error execute chmod: /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/dist/bundle.js: No such file or directory
+35 error execute
+35 error execute npm ERR! Darwin 16.5.0
+35 error execute npm ERR! argv "/Users/wcjohnso/.nvm/versions/node/v6.9.4/bin/node" "/Users/wcjohnso/node_modules/.bin/npm" "run" "prepublish"
+35 error execute npm ERR! node v6.9.4
+35 error execute npm ERR! npm  v3.5.2
+35 error execute npm ERR! code ELIFECYCLE
+35 error execute npm ERR! @mfl/srcmap-reverser@0.0.0 prepublish: `old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main`
+35 error execute npm ERR! Exit status 1
+35 error execute npm ERR!
+35 error execute npm ERR! Failed at the @mfl/srcmap-reverser@0.0.0 prepublish script 'old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main'.
+35 error execute npm ERR! Make sure you have the latest version of node.js and npm installed.
+35 error execute npm ERR! If you do, this is most likely a problem with the @mfl/srcmap-reverser package,
+35 error execute npm ERR! not with npm itself.
+35 error execute npm ERR! Tell the author that this fails on your system:
+35 error execute npm ERR!     old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main
+35 error execute npm ERR! You can get information on how to open an issue for this project with:
+35 error execute npm ERR!     npm bugs @mfl/srcmap-reverser
+35 error execute npm ERR! Or if that isn't available, you can get their info via:
+35 error execute npm ERR!     npm owner ls @mfl/srcmap-reverser
+35 error execute npm ERR! There is likely additional logging output above.
+35 error execute
+35 error execute npm ERR! Please include the following file with any support request:
+35 error execute npm ERR!     /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/npm-debug.log
+35 error execute
+35 error execute > @mfl/srcmap-reverser@0.0.0 prepublish /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser
+35 error execute > old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main
+35 error execute
+35 error execute yarn run v0.22.0
+35 error execute $ rollup -c rollup-config.js
+35 error execute info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+35 error execute
+35 error execute     at Promise.all.then.arr (/Users/wcjohnso/projects/intel/srcmap-reverse/node_modules/execa/index.js:210:11)
+35 error execute     at process._tickCallback (internal/process/next_tick.js:103:7)
+35 error execute   code: 1,
+35 error execute   killed: false,
+35 error execute   stdout: '\n> @mfl/srcmap-reverser@0.0.0 prepublish /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser\n> old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main\n\nyarn run v0.22.0\n$ rollup -c rollup-config.js \ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n',
+35 error execute   stderr: 'Error: You must specify an --input (-i) option\n\nerror Command failed with exit code 1.\nchmod: /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/dist/bundle.js: No such file or directory\n\nnpm ERR! Darwin 16.5.0\nnpm ERR! argv "/Users/wcjohnso/.nvm/versions/node/v6.9.4/bin/node" "/Users/wcjohnso/node_modules/.bin/npm" "run" "prepublish"\nnpm ERR! node v6.9.4\nnpm ERR! npm  v3.5.2\nnpm ERR! code ELIFECYCLE\nnpm ERR! @mfl/srcmap-reverser@0.0.0 prepublish: `old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main`\nnpm ERR! Exit status 1\nnpm ERR! \nnpm ERR! Failed at the @mfl/srcmap-reverser@0.0.0 prepublish script \'old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main\'.\nnpm ERR! Make sure you have the latest version of node.js and npm installed.\nnpm ERR! If you do, this is most likely a problem with the @mfl/srcmap-reverser package,\nnpm ERR! not with npm itself.\nnpm ERR! Tell the author that this fails on your system:\nnpm ERR!     old_pwd=$PWD; cd ../..; yarn run rollup -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main; chmod +x $old_pwd/$npm_package_main\nnpm ERR! You can get information on how to open an issue for this project with:\nnpm ERR!     npm bugs @mfl/srcmap-reverser\nnpm ERR! Or if that isn\'t available, you can get their info via:\nnpm ERR!     npm owner ls @mfl/srcmap-reverser\nnpm ERR! There is likely additional logging output above.\n\nnpm ERR! Please include the following file with any support request:\nnpm ERR!     /Users/wcjohnso/projects/intel/srcmap-reverse/packages/reverser/npm-debug.log\n',
+35 error execute   failed: true,
+35 error execute   signal: null,
+35 error execute   cmd: 'npm run prepublish',
+35 error execute   timedOut: false }

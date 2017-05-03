@@ -3,7 +3,7 @@
 //
 // INTEL CONFIDENTIAL
 //
-// Copyright 2013-2016 Intel Corporation All Rights Reserved.
+// Copyright 2013-2017 Intel Corporation All Rights Reserved.
 //
 // The source code contained or described herein and all documents related
 // to the source code ("Material") are owned by Intel Corporation or its
@@ -21,24 +21,24 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-'use strict';
-
 import highland from 'highland';
 import { exec } from 'child_process';
-import { errorLog } from './logger';
+import { errorLog } from './logger.js';
+
+import type { pushFn } from 'highland';
 
 export default (trace: string) => {
   const lines = trace.split('\n');
 
   return highland(lines)
     .map((line: string) => {
-      return highland((push: Function) => {
+      return highland((push: pushFn<Buffer>): void => {
         const reverse = exec(
-          `node packages/reverser/dist/bundle.js`,
+          `node packages/srcmap-reverser/dist/bundle.js`,
           (err, x) => {
             if (err) {
               errorLog.error({ err }, 'Reversing source map');
-              push(null, line);
+              push(null, Buffer.from(line, 'utf8'));
             } else {
               if (x.length > 0) push(null, x);
             }

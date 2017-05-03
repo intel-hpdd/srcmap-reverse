@@ -2,16 +2,15 @@
 
 import { describe, beforeEach, it, expect, jest } from './jasmine.js';
 import { Readable, Writable } from 'stream';
+import highland from 'highland';
 
 describe('srcmap-reverse unit test', () => {
   let arr,
     mockHttp,
-    mockSourceMapConsumer,
-    smc,
     server,
-    mockBuildTraceCollection,
     trace,
-    srcMap,
+    reversedTrace,
+    mockReverseInParallel,
     output;
 
   beforeEach(done => {
@@ -25,15 +24,14 @@ at HTMLButtonElement.<anonymous> (https://localhost:8000/static/chroma_ui/built-
 at HTMLButtonElement.jQuery.event.dispatch (https://localhost:8000/static/chroma_ui/built-fd5ce21b.js:7:13226)
 at HTMLButtonElement.elemData.handle (https://localhost:8000/static/chroma_ui/built-fd5ce21b.js:7:8056)
 `;
-    srcMap = {
-      version: 1,
-      file: 'file',
-      sources: ['source1', 'source2'],
-      names: ['name1', 'name2'],
-      mappings: 'mappings',
-      sourceRoot: 'sourceRoot',
-      sourcesContent: ['content1', 'content2']
-    };
+    reversedTrace = `at /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/iml/dashboard/dashboard-filter-controller.js:161:14
+at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:10795:20
+at fn /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:19036:16
+at this /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:12632:28
+at $eval /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:12730:22
+at $apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:19035:20
+at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/jquery/jquery.js:4371:8
+at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/jquery/jquery.js:4057:27`;
 
     server = {
       close: jest.fn(() => 'close'),
@@ -45,41 +43,11 @@ at HTMLButtonElement.elemData.handle (https://localhost:8000/static/chroma_ui/bu
     };
     jest.mock('http', () => mockHttp);
 
-    smc = {
-      originalPositionFor: jest
-        .fn(() => 'originalPositionFor')
-        .mockReturnValue({
-          line: 50,
-          column: 25,
-          source: 'source',
-          name: 'smcName'
-        })
-    };
+    mockReverseInParallel = jest
+      .fn(() => 'reverseInParallel')
+      .mockReturnValue(highland([reversedTrace]));
 
-    mockSourceMapConsumer = {
-      SourceMapConsumer: jest
-        .fn(() => 'SourceMapConsumer')
-        .mockImplementation(() => {
-          return smc;
-        })
-    };
-    jest.mock('source-map', () => mockSourceMapConsumer);
-
-    mockBuildTraceCollection = jest
-      .fn(() => 'buildTraceCollection')
-      .mockReturnValue([
-        {
-          compiledLine: 'compiledLine',
-          url: 'url',
-          line: 50,
-          column: 25
-        }
-      ]);
-
-    jest.mock(
-      '../source/build-trace-collection.js',
-      () => mockBuildTraceCollection
-    );
+    jest.mock('../source/reverse-in-parallel', () => mockReverseInParallel);
 
     const srcMapReverse = require('../source/index.js').default;
 
@@ -88,9 +56,7 @@ at HTMLButtonElement.elemData.handle (https://localhost:8000/static/chroma_ui/bu
     const createServer = mockHttp.createServer.mock.calls[0][0];
 
     const request = new Readable({ objectMode: true });
-    request.push('{ "srcMap": ');
-    request.push(JSON.stringify(srcMap));
-    request.push(', "trace');
+    request.push('{ "trace');
     request.push(`": ${JSON.stringify(trace)}`);
     request.push('}');
     request.push(null);
@@ -115,40 +81,29 @@ at HTMLButtonElement.elemData.handle (https://localhost:8000/static/chroma_ui/bu
     expect(mockHttp.createServer).toHaveBeenCalledTimes(1);
   });
 
-  it('should instantiate SourceMapConsumer', () => {
-    expect(mockSourceMapConsumer.SourceMapConsumer).toHaveBeenCalledWith(
-      srcMap
-    );
-  });
-
-  it('should call buildTraceCollection', () => {
-    expect(mockBuildTraceCollection).toHaveBeenCalledWith(trace);
-  });
-
-  it('should call smc.originalPositionFor', () => {
-    expect(smc.originalPositionFor).toHaveBeenCalledWith({
-      compiledLine: 'compiledLine',
-      url: 'url',
-      line: 50,
-      column: 25
-    });
-  });
-
   it('should call server.listen with the specified port', () => {
     expect(server.listen).toHaveBeenCalledWith(8082);
   });
 
+  it('should call reverseInParallel', () => {
+    expect(mockReverseInParallel).toHaveBeenCalledWith(trace);
+  });
+
   it('should produce a source code location.', () => {
-    expect(output.indexOf('source:50:25') !== -1).toBe(true);
+    expect(
+      output.indexOf(
+        'at this /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:12632:28'
+      ) !== -1
+    ).toBe(true);
   });
 
   it('should produce a source code location with a line number.', () => {
     const lineNumber = arr ? arr[1] : '';
-    expect(lineNumber).toBe('50');
+    expect(lineNumber).toBe('161');
   });
 
   it('should produce a source code location with a column number.', () => {
     const columnNumber = arr ? arr[2] : '';
-    expect(columnNumber).toBe('25');
+    expect(columnNumber).toBe('14');
   });
 });

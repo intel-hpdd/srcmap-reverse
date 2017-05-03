@@ -21,43 +21,20 @@
 // otherwise. Any license under such intellectual property rights must be
 // express and approved by Intel in writing.
 
-import { SourceMapConsumer } from 'source-map';
-import buildTraceCollection from './build-trace-collection.js';
-import { errorLog } from './logger.js';
+import { LEVELS, serializers, default as logger } from '@mfl/logger';
 
-type SrcMap = {
-  version: number,
-  file: string,
-  sources: string[],
-  names: string[],
-  mappings: string,
-  sourceRoot: string,
-  sourcesContent: string[]
-};
+const errorLog = logger({
+  path: 'srcmap-reverser-errors.log',
+  level: LEVELS.ERROR,
+  name: 'errors',
+  serializers
+});
 
-export type LineData = {
-  compiledLine: string,
-  url: string,
-  line: number,
-  column: number
-};
+const reverseLog = logger({
+  path: 'srcmap-reverser-trace.log',
+  level: LEVELS.INFO,
+  name: 'reverseTrace',
+  serializers
+});
 
-type PositionData = {
-  line: number,
-  column: number,
-  source: string,
-  name: string
-};
-
-export default (srcMap: SrcMap, trace: string) => {
-  const smc = new SourceMapConsumer(srcMap);
-
-  return buildTraceCollection(trace)
-    .map((x: LineData) => smc.originalPositionFor(x))
-    .map((x: PositionData) => {
-      x.name = x.name ? 'at ' + x.name + ' ' : 'at ';
-      return x;
-    })
-    .map((x: PositionData) => `${x.name}${x.source}:${x.line}:${x.column}`)
-    .join('\n');
-};
+export { errorLog, reverseLog };

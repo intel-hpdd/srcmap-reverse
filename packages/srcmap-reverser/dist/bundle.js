@@ -6,8 +6,6 @@ var util = _interopDefault(require('util'));
 var events = _interopDefault(require('events'));
 var string_decoder = _interopDefault(require('string_decoder'));
 var fs = require('fs');
-var fs__default = _interopDefault(fs);
-var os = _interopDefault(require('os'));
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -3110,76 +3108,17 @@ var SourceMapConsumer = sourceMapConsumer.SourceMapConsumer;
 
 const traceItemRegex = /(http.+):(\d+):(\d+)/;
 var buildTraceCollection = (xs => {
-  return xs.split('\n').map(x => traceItemRegex.exec(x)).filter(x => x != null).map(xs => ({
-    compiledLine: xs[0],
-    url: xs[1],
-    line: parseInt(xs[2], 10),
-    column: parseInt(xs[3], 10)
+  return xs.split('\n').map(x => traceItemRegex.exec(x)).filter(x => x != null).map(([compiledLine, url, line, column]) => ({
+    compiledLine,
+    url,
+    line: parseInt(line, 10),
+    column: parseInt(column, 10)
   }));
-});
-
-const LEVELS = {
-  INFO: 30,
-  ERROR: 50
-};
-
-var logger = (config => {
-  const s = fs__default.createWriteStream(config.path, {
-    flags: 'a',
-    encoding: 'utf8'
-  });
-  const base = {
-    name: config.name,
-    pid: process.pid,
-    hostname: os.hostname(),
-    v: 0
-  };
-  return createLogger(base, s, config);
-});
-const createLogger = (base, s, config) => ({
-  child: r => {
-    return createLogger(Object.assign({}, base, r), s, config);
-  },
-  info: getLevelLogger(config.level, LEVELS.INFO, s, config.serializers, base),
-  error: getLevelLogger(config.level, LEVELS.ERROR, s, config.serializers, base)
-});
-const getLevelLogger = (passedLevel, expectedLevel, s, serializers, base) => passedLevel <= expectedLevel ? parseRecord(s, serializers, expectedLevel, base) : () => {};
-const parseRecord = (s, serializers, level, base) => (r, msg = '') => {
-  if (typeof r === 'string') {
-    msg = r;
-    r = {};
-  }
-  const result = Object.assign({}, base, r, {
-    msg,
-    level,
-    time: new Date().toISOString()
-  });
-  const out = Object.keys(result).reduce((x, k) => {
-    const val = result[k];
-    const serialized = serializers[k] && serializers[k](val);
-    return Object.assign({}, x, {
-      [k]: serialized || val
-    });
-  }, {});
-  s.write(`${JSON.stringify(out)}\n`);
-};
-
-const errorLog = logger({
-  path: 'reverser-errors.log',
-  level: LEVELS.ERROR,
-  name: 'errors',
-  serializers: {}
-});
-const reverseLog = logger({
-  path: 'reverser-trace.log',
-  level: LEVELS.INFO,
-  name: 'reverseTrace',
-  serializers: {}
 });
 
 var srcmapReverse = ((srcMap, trace) => {
   const smc = new SourceMapConsumer(srcMap);
-  return buildTraceCollection(trace).map(x => smc.originalPositionFor(x)).map(x => {
+  return buildTraceCollection(trace).map(smc.originalPositionFor.bind(smc)).map(x => {
     x.name = x.name ? 'at ' + x.name + ' ' : 'at ';
     return x;
   }).map(x => `${x.name}${x.source}:${x.line}:${x.column}`).join('\n');
@@ -3188,9 +3127,7 @@ var srcmapReverse = ((srcMap, trace) => {
 const srcMapFile = process.env.npm_package_config_srcMapFile ? process.env.npm_package_config_srcMapFile : '';
 const sourceMapStream = index$1(fs.createReadStream(`${__dirname}/..${srcMapFile}`));
 var reverser = (s => {
-  return index$1([sourceMapStream, s]).flatMap(s => {
-    return s.map(x => x.toString('utf8')).collect().map(x => x.join(''));
-  }).collect().map(([srcMap, traceLine]) => srcmapReverse(srcMap, traceLine));
+  return index$1([sourceMapStream, s]).flatMap(s => s.map(x => x.toString('utf8')).collect().map(x => x.join(''))).collect().map(([srcMap, traceLine]) => srcmapReverse(srcMap, traceLine));
 });
 
 index$1(process.stdin).otherwise(index$1([''])).through(reverser).pipe(process.stdout);

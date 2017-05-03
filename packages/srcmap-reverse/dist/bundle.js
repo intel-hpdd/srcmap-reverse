@@ -2075,7 +2075,18 @@ const LEVELS = {
   INFO: 30,
   ERROR: 50
 };
-
+const serializers = {
+  err(e) {
+    if (!e || !e.stack) return e;
+    return {
+      message: e.message,
+      name: e.name,
+      stack: e.stack,
+      signal: e.signal,
+      code: e.code
+    };
+  }
+};
 var logger = (config => {
   const s = fs.createWriteStream(config.path, {
     flags: 'a',
@@ -2121,23 +2132,23 @@ const errorLog = logger({
   path: 'srcmap-reverse-errors.log',
   level: LEVELS.ERROR,
   name: 'errors',
-  serializers: {}
+  serializers
 });
 const reverseLog = logger({
   path: 'srcmap-reverse-trace.log',
   level: LEVELS.INFO,
   name: 'reverseTrace',
-  serializers: {}
+  serializers
 });
 
 var reverseInParallel = (trace => {
   const lines = trace.split('\n');
   return index$1(lines).map(line => {
     return index$1(push => {
-      const reverse = child_process.exec(`node packages/reverser/dist/bundle.js`, (err, x) => {
+      const reverse = child_process.exec(`node packages/srcmap-reverser/dist/bundle.js`, (err, x) => {
         if (err) {
           errorLog.error({ err }, 'Reversing source map');
-          push(null, line);
+          push(null, Buffer.from(line, 'utf8'));
         } else {
           if (x.length > 0) push(null, x);
         }
@@ -2152,13 +2163,11 @@ var reverseInParallel = (trace => {
 let server;
 var index = (() => {
   server = http.createServer((request, response) => {
-    const through = index$1.pipeline(index$1.map(x => x.toString('utf-8')), index$1.collect(), index$1.map(x => x.join('')), index$1.flatMap(x => {
+    const r = index$1(request);
+    r.map(x => x.toString('utf-8')).collect().map(x => x.join('')).flatMap(x => {
       const { trace } = JSON.parse(x);
       return reverseInParallel(trace);
-    }), index$1.map(xs => {
-      return JSON.stringify(xs);
-    }));
-    request.pipe(through).pipe(response);
+    }).map(xs => JSON.stringify(xs)).pipe(response);
   });
   const port = +process.env.npm_package_config_port;
   server.listen(port);
