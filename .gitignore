@@ -3,5 +3,5 @@ node_modules
 /dist
 /packages/srcmap-reverse/dist
 /packages/srcmap-reverser/dist
-.log
+*.log
 

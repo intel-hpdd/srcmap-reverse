@@ -1,12 +1,15 @@
 {
+  "name": "srcmap-reverse",
+  "version": "0.0.0",
   "description": "Reverses a minified stack trace using a source map.",
   "private": true,
   "scripts": {
+    "pretest": "npm config set @mfl/srcmap-reverse:port 8082; npm config set @mfl/srcmap-reverse:srcMapFile packages/srcmap-reverser/test/fixtures/built-fd5ce21b.js.map.json; lerna run prepublish;",
     "test": "NODE_ENV=test jest",
-    "cover": "NODE_ENV=test npm t -- --coverage",
+    "cover": "npm t -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
-    "bootstrap": "npm config set @mfl/srcmap-reverse:port 8082; npm config set @mfl/srcmap-reverse:srcMapFile /usr/share/chroma-manager/ui-modules/node_modules/@iml/gui/dist/built*.map; lerna bootstrap",
+    "bootstrap": "lerna bootstrap",
     "clean": "lerna clean; rm -rf packages/srcmap-reverse/dist; rm -rf packages/srcmap-reverser/dist",
     "rollup": "rollup -c rollup-config.js"
   },
