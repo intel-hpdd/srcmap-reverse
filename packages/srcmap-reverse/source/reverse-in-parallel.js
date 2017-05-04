@@ -32,7 +32,7 @@ export default (trace: string) => {
     .map((line: string) => {
       return highland(push => {
         const reverse = exec(
-          `node ${__dirname}/../node_modules/@mfl/srcmap-reverser/dist/bundle.js`,
+          `node ${require.resolve('@mfl/srcmap-reverser')}`,
           (err, x) => {
             if (err) {
               clientErrorsLog.error({ err }, 'Reversing source map');
