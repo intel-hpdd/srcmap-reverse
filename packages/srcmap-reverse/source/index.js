@@ -46,7 +46,7 @@ export default () => {
     }
   );
 
-  const port: number = +process.env.npm_package_config_port;
+  const port: number = +process.env.npm_config__mfl_srcmap_reverse_port;
   server.listen(port);
 
   return server;
