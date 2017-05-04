@@ -23,18 +23,13 @@
 
 import { LEVELS, serializers, default as logger } from '@mfl/logger';
 
-const errorLog = logger({
-  path: 'srcmap-reverse-errors.log',
+const clientErrorsLog = logger({
+  path: process.env.NODE_ENV === 'test'
+    ? 'client_errors.log'
+    : '/var/log/chroma/client_errors.log',
   level: LEVELS.ERROR,
   name: 'errors',
   serializers
 });
 
-const reverseLog = logger({
-  path: 'srcmap-reverse-trace.log',
-  level: LEVELS.INFO,
-  name: 'reverseTrace',
-  serializers
-});
-
-export { errorLog, reverseLog };
+export default clientErrorsLog;
