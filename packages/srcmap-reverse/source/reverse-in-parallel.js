@@ -23,7 +23,7 @@
 
 import highland from 'highland';
 import { exec } from 'child_process';
-import { errorLog } from './logger.js';
+import clientErrorsLog from './logger.js';
 
 export default (trace: string) => {
   const lines = trace.split('\n');
@@ -35,7 +35,7 @@ export default (trace: string) => {
           `node ${__dirname}/../node_modules/@mfl/srcmap-reverser/dist/bundle.js`,
           (err, x) => {
             if (err) {
-              errorLog.error({ err }, 'Reversing source map');
+              clientErrorsLog.error({ err }, 'Reversing source map');
               push(null, Buffer.from(line, 'utf8'));
             } else {
               if (x.length > 0) push(null, x);

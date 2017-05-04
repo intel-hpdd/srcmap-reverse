@@ -72,9 +72,7 @@ describe('reverse in parallel', () => {
     };
     jest.mock('child_process', () => mockChildProcess);
 
-    mockLogger = {
-      errorLog: jest.fn(() => 'errorLog')
-    };
+    mockLogger = jest.fn(() => 'clientErrorsLog');
     jest.mock('../source/logger.js', () => mockLogger);
 
     reverseInParallel = require('../source/reverse-in-parallel.js').default;
