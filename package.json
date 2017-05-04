@@ -4,9 +4,9 @@
   "description": "Reverses a minified stack trace using a source map.",
   "private": true,
   "scripts": {
-    "pretest": "npm config set @mfl/srcmap-reverse:port 8082; npm config set @mfl/srcmap-reverse:srcMapFile packages/srcmap-reverser/test/fixtures/built-fd5ce21b.js.map.json; lerna run prepublish;",
+    "pretest": "lerna run prepublish; yarn config set @mfl/srcmap-reverse:port 8082; yarn config set @mfl/srcmap-reverse:srcMapFile packages/srcmap-reverser/test/fixtures/built-fd5ce21b.js.map.json;",
     "test": "NODE_ENV=test jest",
-    "cover": "npm t -- --coverage",
+    "cover": "yarn run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
     "bootstrap": "lerna bootstrap",
