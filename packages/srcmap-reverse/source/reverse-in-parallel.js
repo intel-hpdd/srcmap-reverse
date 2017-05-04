@@ -25,16 +25,14 @@ import highland from 'highland';
 import { exec } from 'child_process';
 import { errorLog } from './logger.js';
 
-import type { pushFn } from 'highland';
-
 export default (trace: string) => {
   const lines = trace.split('\n');
 
   return highland(lines)
     .map((line: string) => {
-      return highland((push: pushFn<Buffer>): void => {
+      return highland(push => {
         const reverse = exec(
-          `node packages/srcmap-reverser/dist/bundle.js`,
+          `node ${__dirname}/../node_modules/@mfl/srcmap-reverser/dist/bundle.js`,
           (err, x) => {
             if (err) {
               errorLog.error({ err }, 'Reversing source map');

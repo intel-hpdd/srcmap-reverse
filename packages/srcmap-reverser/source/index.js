@@ -24,9 +24,7 @@
 import highland from 'highland';
 import reverser from './reverser.js';
 
-import type { Readable } from 'stream';
-
-highland((process.stdin: Readable))
+highland(process.stdin)
   .otherwise(highland(['']))
   .through(reverser)
   .pipe(process.stdout);

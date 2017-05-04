@@ -84,8 +84,13 @@ describe('reverse in parallel', () => {
   });
 
   it('should start the subprocess for each line', () => {
+    const command: string = mockChildProcess.exec.mock.calls[0][0];
+    const bundlePath = '/../node_modules/@mfl/srcmap-reverser/dist/bundle.js';
+    const endIndex = command.indexOf(bundlePath);
+    const absolutePath = command.substring(5, endIndex);
+
     expect(mockChildProcess.exec).toHaveBeenCalledWith(
-      `node packages/srcmap-reverser/dist/bundle.js`,
+      `node ${absolutePath}${bundlePath}`,
       jasmine.any(Function)
     );
   });

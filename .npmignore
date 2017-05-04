@@ -10,4 +10,5 @@ yarn.lock
 *.log
 /test
 /coverage
+/packages
 fake-dist.js
