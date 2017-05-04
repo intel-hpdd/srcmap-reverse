@@ -22,14 +22,14 @@
 // express and approved by Intel in writing.
 
 import { LEVELS, serializers, default as logger } from '@mfl/logger';
+import { join } from 'path';
 
-const clientErrorsLog = logger({
-  path: process.env.NODE_ENV === 'test'
-    ? 'client_errors.log'
-    : '/var/log/chroma/client_errors.log',
+export default logger({
+  path: join(
+    process.env.npm_config__mfl_logger_path || '',
+    'client_errors.log'
+  ),
   level: LEVELS.ERROR,
   name: 'errors',
   serializers
 });
-
-export default clientErrorsLog;

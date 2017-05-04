@@ -19,16 +19,14 @@ describe('srcmap-reverse integration test', () => {
       .join('\n');
   });
 
-  afterEach((done: Function) => {
+  afterEach(done => {
     server.close(err => {
       if (err) done.fail(err);
       else done();
     });
   });
 
-  it('should return line and column numbers for each line in a minified stack trace', (
-    done: Function
-  ) => {
+  it('should return line and column numbers for each line in a minified stack trace', done => {
     getReq('http')
       .bufferJsonRequest({
         headers: {

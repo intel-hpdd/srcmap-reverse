@@ -9,6 +9,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "config": {
+    "port": "8082",
+    "srcMapFile": "/usr/share/chroma-manager/ui-modules/node_modules/@iml/gui/dist/built*.map",
+    "loggerPath": "/var/log/chroma"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/intel-hpdd/srcmap-reverse.git"
