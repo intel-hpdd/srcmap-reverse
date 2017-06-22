@@ -31,7 +31,7 @@
   },
   "author": "MFL Team",
   "devDependencies": {
-    "@mfl/flow-highland": "4.2.3",
+    "@mfl/flow-highland": "4.2.4",
     "@mfl/flow-jasmine": "1.6.1",
     "@mfl/req": "3.0.4",
     "babel-eslint": "7.2.3",
