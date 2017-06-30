@@ -4,8 +4,8 @@
   "description": "Reverses a minified stack trace using a source map.",
   "private": true,
   "scripts": {
-    "pretest": "lerna run prepublish; yarn config set @mfl/srcmap-reverse:port 8082; yarn config set @mfl/srcmap-reverse:srcMapFile packages/srcmap-reverser/test/fixtures/built-fd5ce21b.js.map.json;",
-    "test": "NODE_ENV=test jest",
+    "pretest": "lerna run clean; lerna bootstrap; lerna run prepublish",
+    "test": "jest --projects packages/srcmap-reverse packages/srcmap-reverser",
     "cover": "yarn run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
@@ -13,51 +13,31 @@
     "clean": "lerna clean; rm -rf packages/srcmap-reverse/dist; rm -rf packages/srcmap-reverser/dist",
     "rollup": "rollup -c rollup-config.js"
   },
-  "pre-commit": [
-    "flow",
-    "eslint",
-    "test"
-  ],
-  "jest": {
-    "resetModules": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "test",
-      "dist"
-    ],
-    "transformIgnorePatterns": [
-      "/node_modules/(?!@mfl)/"
-    ]
-  },
-  "author": "MFL Team",
+  "pre-commit": ["flow", "eslint", "test"],
+  "author": "IML Team",
   "devDependencies": {
-    "@mfl/flow-highland": "4.2.7",
-    "@mfl/flow-jasmine": "1.6.1",
-    "@mfl/req": "3.0.4",
+    "@iml/flow-highland": "4.2.8",
+    "@iml/flow-jasmine": "1.6.1",
     "babel-eslint": "7.2.3",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
-    "babel-preset-env": "1.5.0",
-    "eslint": "3.19.0",
-    "eslint-config-prettier": "2.0.0",
-    "eslint-plugin-flowtype": "2.32.1",
-    "eslint-plugin-import": "2.3.0",
-    "eslint-plugin-prettier": "2.0.1",
-    "flow-bin": "0.46.0",
-    "jest": "20.0.0",
-    "lerna": "2.0.0-rc.5",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^4.1.1",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-flowtype": "^2.34.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "flow-bin": "^0.49.1",
+    "jest": "^20.0.4",
+    "lerna": "^2.0.0",
     "pre-commit": "1.2.2",
-    "prettier": "1.3.1",
-    "rollup": "0.42.0",
+    "prettier": "^1.5.2",
+    "rollup": "^0.43.0",
     "rollup-plugin-babel": "2.7.1",
     "rollup-plugin-cleanup": "1.0.1",
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0"
   },
-  "dependencies": {
-    "@mfl/logger": "1.0.2",
-    "highland": "3.0.0-beta.4",
-    "source-map": "0.5.6"
-  }
+  "dependencies": {}
 }

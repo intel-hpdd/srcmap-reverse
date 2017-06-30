@@ -1,15 +1,13 @@
-// @flow
-
 import { describe, beforeEach, afterEach, it, expect } from './jasmine.js';
-import reverse from '../dist/bundle.js';
-import getReq from '@mfl/req';
+import startServer from '../dist/bundle.js';
+import getReq from '@iml/req';
 import fs from 'fs';
 
 describe('srcmap-reverse integration test', () => {
   let trace, reversedFixture, server;
 
   beforeEach(() => {
-    server = reverse();
+    server = startServer();
     trace = fs.readFileSync(`${__dirname}/fixtures/trace.txt`, 'utf8');
 
     reversedFixture = fs

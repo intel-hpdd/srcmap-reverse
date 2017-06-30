@@ -5,11 +5,14 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-import { LEVELS, serializers, default as logger } from '@mfl/logger';
+import { LEVELS, serializers, default as logger } from '@iml/logger';
 import { join } from 'path';
 
 export default logger({
-  path: join(process.env.npm_config__mfl_loggerPath || '', 'client_errors.log'),
+  path: join(
+    process.env.npm_package_config_loggerPath || '',
+    'client_errors.log'
+  ),
   level: LEVELS.ERROR,
   name: 'errors',
   serializers
