@@ -49,9 +49,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
 
     jest.mock('../source/reverse-in-parallel', () => mockReverseInParallel);
 
-    const srcMapReverse = require('../source/index.js').default;
-
-    srcMapReverse();
+    require('../source/index.js');
 
     const createServer = mockHttp.createServer.mock.calls[0][0];
 
