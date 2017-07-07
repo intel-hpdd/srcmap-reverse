@@ -11,14 +11,25 @@ import highland from 'highland';
 
 import type { HighlandStreamT } from 'highland';
 
-const srcMapFile: string =
-  process.env.npm_config__mfl_srcmap_reverse_srcMapFile || '';
+const srcMapFile: string = process.env.npm_package_config_srcMapFile || '';
 
 const sourceMapStream = highland(createReadStream(srcMapFile));
 
 export default (s: HighlandStreamT<string>) => {
   return highland([sourceMapStream, s])
-    .flatMap(s => s.map(x => x.toString('utf8')).collect().map(x => x.join('')))
+    .flatMap(s =>
+      s
+        .map(x => {
+          // This may either be a string
+          // or a buffer, but since we only use parts
+          // of the API that are effectively
+          // polymorphic, we will ignore.
+          // $FlowFixMe
+          return x.toString('utf8');
+        })
+        .collect()
+        .map(x => x.join(''))
+    )
     .collect()
     .map(([srcMap, traceLine]) => srcmapReverse(srcMap, traceLine));
 };

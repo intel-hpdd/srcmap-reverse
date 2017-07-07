@@ -1,9 +1,11 @@
 {
-  "name": "@mfl/srcmap-reverse",
+  "name": "@iml/srcmap-reverse",
   "version": "2.0.0",
   "description": "Reverses a minified stack trace using a source map.",
   "main": "dist/bundle.js",
   "scripts": {
+    "clean": "rm -rf dist",
+    "start": "node $npm_package_main",
     "prepublish": "old_pwd=$PWD; cd ../..; yarn run rollup -- -i $old_pwd/source/index.js -o $old_pwd/$npm_package_main"
   },
   "publishConfig": {
@@ -18,9 +20,12 @@
     "type": "git",
     "url": "https://github.com/intel-hpdd/srcmap-reverse.git"
   },
-  "author": "MFL Team",
+  "author": "IML Team",
   "license": "MIT",
-  "dependencies": {
-    "@mfl/srcmap-reverser": "0.0.0"
+  "devDependencies": {
+    "highland": "3.0.0-beta.4",
+    "@iml/req": "3.0.4",
+    "@iml/logger": "1.0.2",
+    "@iml/srcmap-reverser": "0.0.0"
   }
 }

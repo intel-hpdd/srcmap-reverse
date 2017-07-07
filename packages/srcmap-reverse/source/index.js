@@ -12,10 +12,8 @@ import clientErrorsLog from './logger.js';
 
 import type { HighlandStreamT } from 'highland';
 
-let server: http.Server;
-
 export default () => {
-  server = http.createServer(
+  const server = http.createServer(
     (request: http.IncomingMessage, response: http.ServerResponse) => {
       const r: HighlandStreamT<Buffer> = highland(request);
       r
@@ -32,7 +30,7 @@ export default () => {
     }
   );
 
-  const port: number = +process.env.npm_config__mfl_srcmap_reverse_port;
+  const port: number = +process.env.npm_package_config_port;
   server.listen(port);
 
   return server;

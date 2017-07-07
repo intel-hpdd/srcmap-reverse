@@ -53,9 +53,10 @@ describe('reverse in parallel', () => {
             let val = chunk.toString('utf8');
             inputSpy(val);
 
-            val = val === 'Error: Come on sourcemaps.' || val === ''
-              ? ''
-              : reverseTraceMap[val];
+            val =
+              val === 'Error: Come on sourcemaps.' || val === ''
+                ? ''
+                : reverseTraceMap[val];
 
             cb(null, val);
             next();
@@ -83,7 +84,7 @@ describe('reverse in parallel', () => {
 
   it('should start the subprocess for each line', () => {
     expect(mockChildProcess.exec).toHaveBeenCalledWith(
-      `node ${require.resolve('@mfl/srcmap-reverser')}`,
+      `node ${require.resolve('@iml/srcmap-reverser')}`,
       jasmine.any(Function)
     );
   });
