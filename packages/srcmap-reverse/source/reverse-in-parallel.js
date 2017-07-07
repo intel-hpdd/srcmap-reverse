@@ -7,7 +7,6 @@
 
 import highland from 'highland';
 import { exec } from 'child_process';
-import clientErrorsLog from './logger.js';
 
 export default (trace: string) => {
   const lines = trace.split('\n');
@@ -19,7 +18,7 @@ export default (trace: string) => {
           `node ${require.resolve('@iml/srcmap-reverser')}`,
           (err, x) => {
             if (err) {
-              clientErrorsLog.error({ err }, 'Reversing source map');
+              console.error({ err }, 'Reversing source map');
               push(null, Buffer.from(line, 'utf8'));
             } else {
               if (x.length > 0) push(null, x);

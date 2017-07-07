@@ -25,7 +25,6 @@
   "devDependencies": {
     "highland": "3.0.0-beta.4",
     "@iml/req": "3.0.4",
-    "@iml/logger": "1.0.2",
     "@iml/srcmap-reverser": "0.0.0"
   }
 }

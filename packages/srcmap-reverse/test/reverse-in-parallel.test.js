@@ -33,7 +33,6 @@ const reverseTraceMap = traceArray
 
 describe('reverse in parallel', () => {
   let mockChildProcess,
-    mockLogger,
     reverseInParallel,
     reverse$,
     stdInStream,
@@ -72,9 +71,6 @@ describe('reverse in parallel', () => {
       })
     };
     jest.mock('child_process', () => mockChildProcess);
-
-    mockLogger = jest.fn(() => 'clientErrorsLog');
-    jest.mock('../source/logger.js', () => mockLogger);
 
     reverseInParallel = require('../source/reverse-in-parallel.js').default;
 

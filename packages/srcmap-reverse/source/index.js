@@ -8,7 +8,6 @@
 import http from 'http';
 import highland from 'highland';
 import reverseInParallel from './reverse-in-parallel.js';
-import clientErrorsLog from './logger.js';
 
 import type { HighlandStreamT } from 'highland';
 
@@ -21,7 +20,7 @@ const server = http.createServer(
       .map((x: string[]) => x.join(''))
       .flatMap((x: string) => {
         const { trace }: { trace: string } = JSON.parse(x);
-        clientErrorsLog.error({ trace }, 'Client Error Trace');
+        console.error({ trace }, 'Client Error Trace');
         return reverseInParallel(trace);
       })
       .map(xs => JSON.stringify(xs))
