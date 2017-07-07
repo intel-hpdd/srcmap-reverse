@@ -3,13 +3,14 @@ node_js:
 - 6
 - 7
 cache: yarn
+before_script:
+- yarn global add codecov
 script:
-- yarn run bootstrap
 - yarn run eslint
 - yarn run flow
-- yarn config set @iml/srcmap-reverse:port 8082
-- yarn config set @iml/srcmap-reverse:srcMapFile packages/srcmap-reverser/test/fixtures/built-fd5ce21b.js.map.json
 - yarn run cover
+after_success:
+- codecov
 deploy:
   provider: npm
   email: joe.grund@intel.com
