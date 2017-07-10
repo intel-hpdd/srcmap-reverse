@@ -8,12 +8,18 @@
 import { createReadStream } from 'fs';
 import srcmapReverse from './src-map-reverse.js';
 import highland from 'highland';
+import path from 'path';
 
 import type { HighlandStreamT } from 'highland';
 
-const srcMapFile: string = process.env.npm_package_config_srcMapFile || '';
+const srcMapFile: string =
+  process.env.NODE_ENV === 'test'
+    ? '../test/fixtures/built-fd5ce21b.js.map.json'
+    : 'main.js.map';
 
-const sourceMapStream = highland(createReadStream(srcMapFile));
+const sourceMapStream = highland(
+  createReadStream(path.join(__dirname, srcMapFile))
+);
 
 export default (s: HighlandStreamT<string>) => {
   return highland([sourceMapStream, s])
