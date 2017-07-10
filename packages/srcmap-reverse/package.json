@@ -12,9 +12,7 @@
     "access": "public"
   },
   "config": {
-    "port": "8082",
-    "srcMapFile": "/usr/share/chroma-manager/ui-modules/node_modules/@iml/gui/dist/built*.map",
-    "loggerPath": "/var/log/chroma"
+    "port": "8082"
   },
   "repository": {
     "type": "git",
