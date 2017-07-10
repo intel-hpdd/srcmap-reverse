@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "pretest": "lerna run clean; lerna bootstrap; lerna run prepublish",
-    "test": "jest --projects packages/srcmap-reverse packages/srcmap-reverser",
+    "test": "NODE_ENV=test; jest --silent --projects packages/srcmap-reverse packages/srcmap-reverser",
     "cover": "yarn run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
