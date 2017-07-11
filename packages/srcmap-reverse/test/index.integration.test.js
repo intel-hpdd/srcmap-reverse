@@ -6,7 +6,7 @@ describe('srcmap-reverse integration test', () => {
   let trace, reversedFixture, server;
 
   beforeEach(() => {
-    server = require('../dist/bundle.js');
+    server = require('../dist/srcmap-reverse.js');
     trace = fs.readFileSync(`${__dirname}/fixtures/trace.txt`, 'utf8');
 
     reversedFixture = fs
