@@ -1,6 +1,6 @@
 {
   "name": "@iml/srcmap-reverse-server",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "description": "Reverses a minified stack trace using a source map.",
   "main": "dist/srcmap-reverse-server.js",
   "scripts": {
@@ -20,8 +20,10 @@
   },
   "author": "IML Team",
   "license": "MIT",
+  "dependencies": {
+    "@iml/srcmap-reverser": "^1.0.1"
+  },
   "devDependencies": {
-    "@iml/req": "3.0.4",
-    "@iml/srcmap-reverser": "^0.0.0"
+    "@iml/req": "3.0.4"
   }
 }
