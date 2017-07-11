@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Reverses a minified stack trace using a source map.",
   "private": true,
+  "main": "index.js",
   "scripts": {
     "pretest": "lerna run clean; lerna bootstrap; lerna run prepublish",
     "test": "NODE_ENV=test; jest --silent --projects packages/srcmap-reverse-server packages/srcmap-reverser",
@@ -11,7 +12,11 @@
     "eslint": "eslint ./",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean; rm -rf packages/srcmap-reverse-server/dist; rm -rf packages/srcmap-reverser/dist",
-    "rollup": "rollup -c rollup-config.js"
+    "rollup": "rollup -c rollup-config.js",
+    "start": "node index.js"
+  },
+  "config": {
+    "port": 8082
   },
   "pre-commit": ["flow", "eslint", "test"],
   "author": "IML Team",
@@ -39,5 +44,8 @@
     "rollup-plugin-cleanup": "1.0.1",
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0"
+  },
+  "dependencies": {
+    "@iml/srcmap-reverse-server": "1.0.1"
   }
 }

@@ -18,7 +18,6 @@
   "license": "MIT",
   "devDependencies": {
     "@iml/gui": "6.0.12",
-    "highland": "3.0.0-beta.4",
     "source-map": "0.5.6"
   }
 }
