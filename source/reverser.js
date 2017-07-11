@@ -6,7 +6,7 @@
 // license that can be found in the LICENSE file.
 
 import { createReadStream } from 'fs';
-import srcmapReverse from './src-map-reverse.js';
+import srcmapReverse from './srcmap-reverse.js';
 import highland from 'highland';
 import path from 'path';
 

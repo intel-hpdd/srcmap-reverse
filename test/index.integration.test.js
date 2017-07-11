@@ -1,26 +1,42 @@
 import { describe, beforeEach, afterEach, it, expect } from './jasmine.js';
 import getReq from '@iml/req';
 import fs from 'fs';
+import path from 'path';
+import serverProcess from 'child_process';
 
-describe('srcmap-reverse integration test', () => {
-  let trace, reversedFixture, server;
+describe('srcmap-reverse-server integration test', () => {
+  let server, trace, reversedFixture;
 
-  beforeEach(() => {
-    server = require('../dist/bundle.js');
-    trace = fs.readFileSync(`${__dirname}/fixtures/trace.txt`, 'utf8');
+  beforeEach(done => {
+    server = serverProcess.fork(
+      `${path.join(__dirname, '..', 'dist', 'srcmap-reverse.js')}`,
+      {
+        stdio: 'inherit',
+        shell: true
+      }
+    );
 
+    server.on('message', x => {
+      if (x.setup) done();
+    });
+
+    trace = fs.readFileSync(
+      path.join(__dirname, 'fixtures', 'trace.txt'),
+      'utf8'
+    );
     reversedFixture = fs
-      .readFileSync(`${__dirname}/fixtures/reversed-trace.txt`, 'utf8')
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'reversed-trace.txt'),
+        'utf8'
+      )
       .split('\n')
       .slice(0, -1)
       .join('\n');
   });
 
   afterEach(done => {
-    server.close(err => {
-      if (err) done.fail(err);
-      else done();
-    });
+    server.once('close', () => done());
+    server.kill();
   });
 
   it('should return line and column numbers for each line in a minified stack trace', done => {
@@ -30,7 +46,9 @@ describe('srcmap-reverse integration test', () => {
           Connection: 'close'
         },
         method: 'POST',
-        json: { trace },
+        json: {
+          trace: trace
+        },
         path: 'localhost',
         port: 8082
       })

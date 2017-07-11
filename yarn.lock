@@ -10,6 +10,25 @@
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@iml/flow-jasmine/-/flow-jasmine-1.6.1.tgz#1b832db180087ebf05ad8ac9219d07718e05a334"
 
+"@iml/fp@8.0.3":
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/@iml/fp/-/fp-8.0.3.tgz#ce62a8ad91eae9994357417fa4e1dd1e69c16196"
+  dependencies:
+    "@iml/maybe" "3.1.0"
+
+"@iml/maybe@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@iml/maybe/-/maybe-3.1.0.tgz#32e4f886d1206bb6e852a405c8f2881e775dd81f"
+
+"@iml/req@3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@iml/req/-/req-3.0.4.tgz#16152cc77506113250192f395bbb5a4e080d56e2"
+  dependencies:
+    "@iml/flow-highland" "4.2.8"
+    "@iml/fp" "8.0.3"
+    highland "3.0.0-beta.4"
+    json-mask "0.3.8"
+
 JSONStream@^1.0.4:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.1.tgz#707f761e01dae9e16f1bcf93703b78c70966579a"
@@ -61,8 +80,8 @@ ajv@^4.7.0, ajv@^4.9.1:
     json-stable-stringify "^1.0.1"
 
 ajv@^5.2.0:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.2.1.tgz#dcd03045175883ba1b636e5ae9ec3df9ab85323a"
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.2.2.tgz#47c68d69e86f5d953103b0074a9430dc63da5e39"
   dependencies:
     co "^4.6.0"
     fast-deep-equal "^1.0.0"
@@ -838,8 +857,8 @@ camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000684:
-  version "1.0.30000698"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000698.tgz#8102e8978b1f36962f2a102432e4bf4eac7b6cbe"
+  version "1.0.30000700"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000700.tgz#6084871ec75c6fa62327de97622514f95d9db26a"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1341,8 +1360,8 @@ eslint-module-utils@^2.1.1:
     pkg-dir "^1.0.0"
 
 eslint-plugin-flowtype@^2.34.1:
-  version "2.34.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.34.1.tgz#ea109175645b05d37baeac53b9b65066d79b9446"
+  version "2.35.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.35.0.tgz#d17494f0ae8b727c632d8b9d4b4a848e7e0c04af"
   dependencies:
     lodash "^4.15.0"
 
@@ -1847,6 +1866,10 @@ hawk@~3.1.3:
     cryptiles "2.x.x"
     hoek "2.x.x"
     sntp "1.x.x"
+
+highland@3.0.0-beta.4:
+  version "3.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/highland/-/highland-3.0.0-beta.4.tgz#5afde340609d35dc1046adbb57a7f54f1ee5c38f"
 
 hoek@2.x.x:
   version "2.16.3"
@@ -2425,6 +2448,10 @@ jsesc@^1.3.0:
 jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
+
+json-mask@0.3.8:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/json-mask/-/json-mask-0.3.8.tgz#2d66415de14b0e8bc6c1514554a90bfca8356941"
 
 json-schema-traverse@^0.3.0:
   version "0.3.1"

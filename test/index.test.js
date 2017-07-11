@@ -4,7 +4,7 @@ import { describe, beforeEach, it, expect, jest } from './jasmine.js';
 import { Readable, Writable } from 'stream';
 import highland from 'highland';
 
-describe('srcmap-reverse unit test', () => {
+describe('srcmap-reverse-server unit test', () => {
   let arr,
     mockHttp,
     server,

@@ -24,7 +24,6 @@ type PositionData = {
 
 export default (srcMap: string, trace: string) => {
   const smc = new SourceMapConsumer(srcMap);
-
   return buildTraceCollection(trace)
     .map(smc.originalPositionFor.bind(smc))
     .map((x: PositionData) => {
