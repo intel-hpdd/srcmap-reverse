@@ -1,5 +1,5 @@
 [Unit]
-Description=Source Map Reverse Socket
+Description=Source Map Reverser Socket
 
 [Socket]
 ListenStream=/var/run/srcmap-reverse.sock
