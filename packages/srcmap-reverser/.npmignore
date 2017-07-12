@@ -1,0 +1,7 @@
+*.log
+.babelrc
+yarn.lock
+/source
+/test
+/coverage
+jest.config.js

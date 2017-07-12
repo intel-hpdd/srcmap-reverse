@@ -9,7 +9,7 @@ describe('srcmap-reverser', () => {
     spy = jest.fn(() => 'spy');
 
     index = exec(
-      'node packages/srcmap-reverser/dist/bundle.js',
+      'node packages/srcmap-reverser/dist/srcmap-reverser.js',
       (e: ?Error, x: string) => {
         spy(x);
         done();

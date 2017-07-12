@@ -2,11 +2,11 @@ import { describe, beforeEach, afterEach, it, expect } from './jasmine.js';
 import getReq from '@iml/req';
 import fs from 'fs';
 
-describe('srcmap-reverse integration test', () => {
+describe('srcmap-reverse-server integration test', () => {
   let trace, reversedFixture, server;
 
   beforeEach(() => {
-    server = require('../dist/bundle.js');
+    server = require('../dist/srcmap-reverse-server.js');
     trace = fs.readFileSync(`${__dirname}/fixtures/trace.txt`, 'utf8');
 
     reversedFixture = fs

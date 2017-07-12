@@ -5,12 +5,12 @@
   "private": true,
   "scripts": {
     "pretest": "lerna run clean; lerna bootstrap; lerna run prepublish",
-    "test": "NODE_ENV=test; jest --silent --projects packages/srcmap-reverse packages/srcmap-reverser",
+    "test": "NODE_ENV=test; jest --silent --projects packages/srcmap-reverse-server packages/srcmap-reverser",
     "cover": "yarn run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
     "bootstrap": "lerna bootstrap",
-    "clean": "lerna clean; rm -rf packages/srcmap-reverse/dist; rm -rf packages/srcmap-reverser/dist",
+    "clean": "lerna clean; rm -rf packages/srcmap-reverse-server/dist; rm -rf packages/srcmap-reverser/dist",
     "rollup": "rollup -c rollup-config.js"
   },
   "pre-commit": ["flow", "eslint", "test"],
@@ -38,6 +38,5 @@
     "rollup-plugin-cleanup": "1.0.1",
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0"
-  },
-  "dependencies": {}
+  }
 }

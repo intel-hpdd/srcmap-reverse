@@ -1,8 +1,8 @@
 {
-  "name": "@iml/srcmap-reverse",
-  "version": "2.0.0",
+  "name": "@iml/srcmap-reverse-server",
+  "version": "1.0.2",
   "description": "Reverses a minified stack trace using a source map.",
-  "main": "dist/bundle.js",
+  "main": "dist/srcmap-reverse-server.js",
   "scripts": {
     "clean": "rm -rf dist",
     "start": "node $npm_package_main",
@@ -16,13 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/intel-hpdd/srcmap-reverse.git"
+    "url": "https://github.com/intel-hpdd/srcmap-reverse-server.git"
   },
   "author": "IML Team",
   "license": "MIT",
   "devDependencies": {
-    "highland": "3.0.0-beta.4",
     "@iml/req": "3.0.4",
-    "@iml/srcmap-reverser": "0.0.0"
+    "@iml/srcmap-reverser": "^1.0.2",
+    "highland": "3.0.0-beta.4"
   }
 }
