@@ -1,7 +1,5 @@
 node_modules
 /coverage
 /dist
-/packages/srcmap-reverse-server/dist
-/packages/srcmap-reverser/dist
 *.log
 

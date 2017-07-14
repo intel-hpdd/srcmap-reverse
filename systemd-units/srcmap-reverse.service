@@ -1,10 +1,10 @@
 [Unit]
-Description=Source Map Reverse Server Service
+Description=Source Map Reverse Service
 RefuseManualStart=true
 
 [Service]
 Restart=always
 Environment=NODE_ENV=production
-ExecStart=/usr/bin/node /sbin/srcmap-reverse-server
+ExecStart=/usr/bin/node /sbin/srcmap-reverse
 StandardOutput=journal+console
 StandardError=journal+console
