@@ -1,7 +1,6 @@
 // @flow
 
-import { Writable } from 'stream';
-import { describe, beforeEach, it, expect, jest, jasmine } from './jasmine.js';
+import { describe, beforeEach, it, expect, jest } from './jasmine.js';
 
 const trace = `Error: Come on sourcemaps.
 at Object.DashboardFilterCtrl.$scope.filter.onFilterView (https://localhost:8000/static/chroma_ui/built-fd5ce21b.js:38:7096)
@@ -24,75 +23,68 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
 at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/jquery/jquery.js:4057:27`;
 const reversedTraceArray = reversedTrace.split('\n');
 
-const reverseTraceMap = traceArray
-  .slice(1)
-  .reduce((obj: Object, cur: string, idx: number) => {
-    obj[cur] = reversedTraceArray[idx];
-    return obj;
-  }, {});
-
 describe('reverse in parallel', () => {
-  let mockChildProcess,
-    reverseInParallel,
-    reverse$,
-    stdInStream,
-    spy,
-    inputSpy,
-    endSpy;
+  let reverseInParallel, reverse$, mockCluster, workers, spy;
 
   beforeEach((done: () => void) => {
-    spy = jest.fn(() => 'spy');
-    inputSpy = jest.fn(() => 'spy');
-    endSpy = jest.fn(() => 'spy');
+    workers = [];
 
-    mockChildProcess = {
-      exec: jest.fn(() => 'exec').mockImplementation((cmd, cb) => {
-        stdInStream = new Writable({
-          write: (chunk, encoding, next) => {
-            let val = chunk.toString('utf8');
-            inputSpy(val);
+    mockCluster = {
+      fork: jest.fn(() => {
+        const worker = {
+          on: jest.fn(() => {}),
+          kill: jest.fn(),
+          send: jest.fn(() => 'spy')
+        };
+        workers.push(worker);
 
-            val =
-              val === 'Error: Come on sourcemaps.' || val === ''
-                ? ''
-                : reverseTraceMap[val];
-
-            cb(null, val);
-            next();
-          }
-        });
-
-        stdInStream.once('finish', () => {
-          endSpy();
-          done();
-        });
-
-        return { stdin: stdInStream };
+        return worker;
       })
     };
-    jest.mock('child_process', () => mockChildProcess);
+
+    spy = jest.fn(() => 'spy');
+
+    jest.mock('cluster', () => mockCluster);
 
     reverseInParallel = require('../source/reverse-in-parallel.js').default;
 
-    reverse$ = reverseInParallel(trace);
-    reverse$.each(spy);
-  });
+    reverse$ = reverseInParallel({ srcmapFile: undefined, trace });
+    reverse$.each(x => {
+      spy(x);
+      done();
+    });
 
-  it('should start the subprocess for each line', () => {
-    expect(mockChildProcess.exec).toHaveBeenCalledWith(
-      `node ${require.resolve('@iml/srcmap-reverser')}`,
-      jasmine.any(Function)
-    );
-  });
-
-  [0, 1, 2, 3, 4, 5, 6, 7].forEach(idx => {
-    it(`should write item ${idx + 1} to the subprocess stream`, () => {
-      expect(inputSpy).toHaveBeenCalledWith(traceArray[idx]);
+    workers.forEach((x, idx) => {
+      x.on.mock.calls[0][1]({
+        line: reversedTraceArray[idx]
+      });
     });
   });
 
-  it('should end the stream for each line', () => {
-    expect(endSpy).toHaveBeenCalledTimes(9);
+  it('should fork the cluster for each line', () => {
+    expect(mockCluster.fork).toHaveBeenCalledTimes(9);
+  });
+
+  it('should call worker.on whenever a message is received', () => {
+    workers.forEach(worker => {
+      expect(worker.on).toHaveBeenCalledWith('message', expect.any(Function));
+      expect(worker.on).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should kill each worker', () => {
+    workers.forEach(worker => {
+      expect(worker.kill).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should send the line to the worker', () => {
+    workers.forEach((worker, idx) => {
+      expect(worker.send).toHaveBeenCalledWith({
+        line: traceArray[idx],
+        srcmapFile: undefined
+      });
+    });
   });
 
   it('should return the collected reverse trace', () => {

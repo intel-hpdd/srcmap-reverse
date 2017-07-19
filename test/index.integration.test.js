@@ -1,25 +1,12 @@
-import { describe, beforeEach, afterEach, it, expect } from './jasmine.js';
-import getReq from '@iml/req';
+import { describe, beforeEach, it, expect } from './jasmine.js';
 import fs from 'fs';
 import path from 'path';
-import serverProcess from 'child_process';
+import request from './request.js';
 
-describe('srcmap-reverse-server integration test', () => {
-  let server, trace, reversedFixture;
+xdescribe('srcmap-reverse-server integration test', () => {
+  let trace, reversedFixture;
 
-  beforeEach(done => {
-    server = serverProcess.fork(
-      `${path.join(__dirname, '..', 'dist', 'srcmap-reverse.js')}`,
-      {
-        stdio: 'inherit',
-        shell: true
-      }
-    );
-
-    server.on('message', x => {
-      if (x.setup) done();
-    });
-
+  beforeEach(() => {
     trace = fs.readFileSync(
       path.join(__dirname, 'fixtures', 'trace.txt'),
       'utf8'
@@ -34,29 +21,9 @@ describe('srcmap-reverse-server integration test', () => {
       .join('\n');
   });
 
-  afterEach(done => {
-    server.once('close', () => done());
-    server.kill();
-  });
-
-  it('should return line and column numbers for each line in a minified stack trace', done => {
-    getReq('http')
-      .bufferJsonRequest({
-        headers: {
-          Connection: 'close'
-        },
-        method: 'POST',
-        json: {
-          trace: trace
-        },
-        path: 'localhost',
-        port: 8082
-      })
-      .each(x => {
-        expect(x.body).toBe(reversedFixture);
-      })
-      .stopOnError(done.fail)
-      .done(done);
+  it('should return line and column numbers for each line in a minified stack trace', async () => {
+    const result = await request(trace);
+    expect(result).toBe(reversedFixture);
   });
 
   describe('to test support for parellelized deminification', () => {
@@ -67,24 +34,9 @@ describe('srcmap-reverse-server integration test', () => {
       fixtureSingle = reversedFixture.split('\n')[0];
     });
 
-    it('should return line and column numbers for a single minified line', (
-      done: Function
-    ) => {
-      getReq('http')
-        .bufferJsonRequest({
-          headers: {
-            Connection: 'close'
-          },
-          method: 'POST',
-          json: { trace: single },
-          path: 'localhost',
-          port: 8082
-        })
-        .each(x => {
-          expect(x.body).toEqual(fixtureSingle);
-        })
-        .stopOnError(done.fail)
-        .done(done);
+    it('should return line and column numbers for a single minified line', async () => {
+      const result = await request(single);
+      expect(result).toEqual(fixtureSingle);
     });
   });
 });

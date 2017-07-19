@@ -22,29 +22,28 @@ if (cluster.isMaster) {
         .map(x => x.toString('utf-8'))
         .collect()
         .map((x: string[]) => x.join(''))
-        .flatMap((x: string) => {
-          const { trace }: { trace: string } = JSON.parse(x);
-          return reverseInParallel(trace);
-        })
+        .map(JSON.parse)
+        .flatMap(reverseInParallel)
         .map(xs => JSON.stringify(xs))
         .pipe(response);
     }
   );
 
-  const port: number = +process.env.npm_package_config_port;
-  server.listen(port);
-
-  process.send({ setup: true });
+  server.listen({ fd: parseInt(process.env.SRCMAP_REVERSE_FD, 10) });
 } else {
-  process.on('message', msg => {
-    highland([msg])
-      .otherwise(highland(['']))
-      .through(reverser)
-      .collect()
-      .errors((e: Error, push: Function) => {
-        process.send({ error: e });
-        push(e);
-      })
-      .each(line => process.send({ line }));
-  });
+  process.on(
+    'message',
+    ({ line, srcmapFile }: { line: string, srcmapFile: ?string }) => {
+      highland([line])
+        .otherwise(highland(['']))
+        .through(reverser(srcmapFile))
+        .collect()
+        .errors((e: Error) => {
+          if (process.send) process.send({ error: e });
+        })
+        .each(line => {
+          if (process.send) process.send({ line });
+        });
+    }
+  );
 }

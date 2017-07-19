@@ -8,17 +8,19 @@
 import highland from 'highland';
 import cluster from 'cluster';
 
-export default (trace: string) => {
+export default ({
+  trace,
+  srcmapFile
+}: {
+  trace: string,
+  srcmapFile: ?string
+}) => {
   const lines = trace.split('\n');
 
-  const workers = [];
-  for (let i = 0; i < lines.length; i++) workers.push(cluster.fork());
-
   return highland(lines)
-    .map((line: string) => {
-      const worker = workers.pop();
-
-      return highland(push => {
+    .map((line: string) => [line, cluster.fork()])
+    .map(([line, worker]: [string, cluster$Worker]) =>
+      highland(push => {
         worker.on('message', msg => {
           if (msg.error) {
             console.error(msg.error, 'Reversing source map');
@@ -31,9 +33,12 @@ export default (trace: string) => {
           worker.kill();
         });
 
-        worker.send(line);
-      });
-    })
+        worker.send({
+          srcmapFile,
+          line
+        });
+      })
+    )
     .parallel(lines.length)
     .collect()
     .map(x => x.join('\n').trim());
