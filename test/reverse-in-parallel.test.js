@@ -26,7 +26,7 @@ const reversedTraceArray = reversedTrace.split('\n');
 describe('reverse in parallel', () => {
   let reverseInParallel, reverse$, mockCluster, workers, spy;
 
-  beforeEach((done: () => void) => {
+  beforeEach(() => {
     workers = [];
 
     mockCluster = {
@@ -47,47 +47,84 @@ describe('reverse in parallel', () => {
     jest.mock('cluster', () => mockCluster);
 
     reverseInParallel = require('../source/reverse-in-parallel.js').default;
+  });
 
-    reverse$ = reverseInParallel({ srcmapFile: undefined, trace });
-    reverse$.each(x => {
-      spy(x);
-      done();
-    });
+  describe('with messages', () => {
+    beforeEach((done: () => void) => {
+      reverse$ = reverseInParallel({ srcmapFile: undefined, trace });
+      reverse$.each(x => {
+        spy(x);
+        done();
+      });
 
-    workers.forEach((x, idx) => {
-      x.on.mock.calls[0][1]({
-        line: reversedTraceArray[idx]
+      workers.forEach((x, idx) => {
+        x.on.mock.calls[0][1]({
+          line: reversedTraceArray[idx]
+        });
       });
     });
-  });
 
-  it('should fork the cluster for each line', () => {
-    expect(mockCluster.fork).toHaveBeenCalledTimes(9);
-  });
-
-  it('should call worker.on whenever a message is received', () => {
-    workers.forEach(worker => {
-      expect(worker.on).toHaveBeenCalledWith('message', expect.any(Function));
-      expect(worker.on).toHaveBeenCalledTimes(1);
+    it('should fork the cluster for each line', () => {
+      expect(mockCluster.fork).toHaveBeenCalledTimes(9);
     });
-  });
 
-  it('should kill each worker', () => {
-    workers.forEach(worker => {
-      expect(worker.kill).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  it('should send the line to the worker', () => {
-    workers.forEach((worker, idx) => {
-      expect(worker.send).toHaveBeenCalledWith({
-        line: traceArray[idx],
-        srcmapFile: undefined
+    it('should call worker.on whenever a message is received', () => {
+      workers.forEach(worker => {
+        expect(worker.on).toHaveBeenCalledWith('message', expect.any(Function));
+        expect(worker.on).toHaveBeenCalledTimes(1);
       });
     });
+
+    it('should kill each worker', () => {
+      workers.forEach(worker => {
+        expect(worker.kill).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('should send the line to the worker', () => {
+      workers.forEach((worker, idx) => {
+        expect(worker.send).toHaveBeenCalledWith({
+          line: traceArray[idx],
+          srcmapFile: undefined
+        });
+      });
+    });
+
+    it('should return the collected reverse trace', () => {
+      expect(spy).toHaveBeenCalledWith(reversedTrace);
+    });
   });
 
-  it('should return the collected reverse trace', () => {
-    expect(spy).toHaveBeenCalledWith(reversedTrace);
+  describe('with errors', () => {
+    const error = new Error('oohhhh nooo!');
+
+    beforeEach((done: () => void) => {
+      jest.spyOn(console, 'error');
+
+      reverse$ = reverseInParallel({ srcmapFile: undefined, trace });
+      reverse$.each(x => {
+        spy(x);
+        done();
+      });
+
+      workers.forEach(x => {
+        x.on.mock.calls[0][1]({
+          error
+        });
+      });
+    });
+
+    it('should log an error for each line', () => {
+      expect(console.error).toHaveBeenCalledTimes(9);
+      trace
+        .split('\n')
+        .splice(1, 0)
+        .map(x => expect(console.error).toHaveBeenCalledWith(error, x));
+    });
+
+    it('should push the line back', () => {
+      expect(spy).toHaveBeenCalledWith(trace);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
   });
 });

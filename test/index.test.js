@@ -16,7 +16,9 @@ describe('srcmap-reverse-server unit test', () => {
     reversedTrace,
     mockReverseInParallel,
     mockCluster,
-    output;
+    output,
+    handler,
+    mockReverser;
 
   beforeEach(() => {
     trace = `Error: Come on sourcemaps.
@@ -98,10 +100,10 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
     });
 
     it('should call reverseInParallel', () => {
-      expect(mockReverseInParallel).toHaveBeenCalledWith(
-        '/tmp/built-fd5ce21b.js.map.json',
+      expect(mockReverseInParallel).toHaveBeenCalledWith({
+        srcmapFile,
         trace
-      );
+      });
     });
 
     it('should produce a source code location.', () => {
@@ -123,9 +125,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
     });
   });
 
-  fdescribe('worker', () => {
-    let handler, mockReverser;
-
+  describe('worker', () => {
     beforeEach(() => {
       jest.resetAllMocks();
       mockCluster = {
@@ -161,6 +161,47 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
       expect(process.send).toHaveBeenCalledWith({
         line: [line]
       });
+    });
+  });
+
+  describe('worker encounters error', () => {
+    const bigBadError = new Error('ohhhh noooo!');
+
+    beforeEach(() => {
+      jest.resetAllMocks();
+      mockCluster = {
+        isMaster: false
+      };
+      jest.mock('cluster', () => mockCluster);
+
+      mockReverser = jest.fn(() => () =>
+        highland([{ __HighlandStreamError__: true, error: bigBadError }])
+      );
+      jest.mock('../source/reverser.js', () => mockReverser);
+
+      jest.spyOn(process, 'on');
+      process.send = jest.fn(() => {});
+
+      require('../source/index.js');
+
+      handler = process.on.mock.calls[0][1];
+
+      handler({
+        line,
+        srcmapFile
+      });
+    });
+
+    it('should call reverser with the sourcemap file', () => {
+      expect(mockReverser).toHaveBeenCalledWith(srcmapFile);
+    });
+
+    it('should send the error back to the master', () => {
+      expect(process.send).toHaveBeenCalledWith({ error: bigBadError });
+    });
+
+    it('should not send a line back to the master', () => {
+      expect(process.send).not.toHaveBeenCalledWith({ line });
     });
   });
 });
