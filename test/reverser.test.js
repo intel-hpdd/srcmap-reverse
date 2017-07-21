@@ -12,25 +12,21 @@ describe('reverser', () => {
 
   beforeEach(done => {
     spy = jest.fn(() => 'spy');
-    mockSrcMapReverse = jest
-      .fn(() => 'srcMapReverse')
-      .mockReturnValue(reversedLine);
-    jest.mock('../source/src-map-reverse.js', () => mockSrcMapReverse);
+    mockSrcMapReverse = jest.fn(() => reversedLine);
+    jest.mock('../source/srcmap-reverse.js', () => mockSrcMapReverse);
 
     sourceMapStream = new Readable({ objectMode: true });
     sourceMapStream.push('source-maps');
     sourceMapStream.push(null);
 
     mockFs = {
-      createReadStream: jest
-        .fn(() => 'createReadStream')
-        .mockReturnValue(sourceMapStream)
+      createReadStream: jest.fn(() => sourceMapStream)
     };
     jest.mock('fs', () => mockFs);
 
     reverser = require('../source/reverser.js').default;
 
-    reverser(
+    reverser('test/fixtures/built-fd5ce21b.js.map.json')(
       highland([
         'at Object.DashboardFilterCtrl.$scope.filter.onFilterView (https://localhost:8000/static/chroma_ui/built-fd5ce21b.js:38:7096)'
       ])

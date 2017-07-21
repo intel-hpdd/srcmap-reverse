@@ -6,12 +6,12 @@ cache: yarn
 before_script:
 - yarn global add codecov
 script:
-- yarn run bootstrap
 - yarn run eslint
 - yarn run flow
 - yarn run cover
 after_success:
 - codecov
+before_deploy: yarn postversion
 deploy:
   provider: npm
   email: joe.grund@intel.com

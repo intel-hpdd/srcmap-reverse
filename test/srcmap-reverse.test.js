@@ -56,7 +56,7 @@ describe('src map reverse', () => {
       sourcesContent: ['content1', 'content2']
     });
 
-    srcMapReverse = require('../source/src-map-reverse.js').default;
+    srcMapReverse = require('../source/srcmap-reverse.js').default;
     trace =
       'at Object.DashboardFilterCtrl.$scope.filter.onFilterView (https://localhost:8000/static/chroma_ui/built-fd5ce21b.js:38:7096)';
 

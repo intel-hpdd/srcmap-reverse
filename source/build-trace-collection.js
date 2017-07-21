@@ -7,7 +7,7 @@
 
 const traceItemRegex = /(http.+):(\d+):(\d+)/;
 
-import type { LineData } from './src-map-reverse.js';
+import type { LineData } from './srcmap-reverse.js';
 
 export default (xs: string): LineData[] => {
   return xs
