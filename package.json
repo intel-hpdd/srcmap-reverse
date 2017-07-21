@@ -14,9 +14,6 @@
   },
   "pre-commit": ["flow", "eslint", "test"],
   "author": "IML Team",
-  "config": {
-    "port": 8082
-  },
   "devDependencies": {
     "@iml/flow-highland": "4.2.8",
     "@iml/flow-jasmine": "1.6.1",
