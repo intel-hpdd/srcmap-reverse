@@ -22,10 +22,11 @@ export default {
       ],
       babelrc: false
     }),
-    nodeResolve({ jsnext: true, main: true }),
+    nodeResolve({ jsnext: true, main: true, preferBuiltins: true }),
     commonjs(),
     cleanup()
   ],
   sourceMap: true,
-  format: 'cjs'
+  format: 'cjs',
+  external: ['http', 'util', 'events', 'string_decoder', 'cluster', 'fs']
 };

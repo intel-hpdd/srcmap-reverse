@@ -5,7 +5,7 @@
   "main": "dist/srcmap-reverse.js",
   "scripts": {
     "pretest": "yarn rollup",
-    "test": "jest",
+    "test": "jest --silent",
     "cover": "yarn run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
