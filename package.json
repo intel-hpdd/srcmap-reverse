@@ -10,7 +10,8 @@
     "cover": "yarn run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
-    "rollup": "rollup -c rollup-config.js -i source/index.js -o $npm_package_main"
+    "rollup": "rollup -c rollup-config.js -i source/index.js -o $npm_package_main",
+    "postversion": "rm -rf ./dist; yarn rollup"
   },
   "pre-commit": ["flow", "eslint", "test"],
   "author": "IML Team",
