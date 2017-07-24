@@ -1,6 +1,6 @@
 {
   "name": "@iml/srcmap-reverse",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Reverses a minified stack trace using a source map.",
   "main": "dist/srcmap-reverse.js",
   "scripts": {
