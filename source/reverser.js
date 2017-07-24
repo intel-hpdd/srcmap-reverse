@@ -12,7 +12,7 @@ import highland from 'highland';
 import type { HighlandStreamT } from 'highland';
 
 export default (srcmapFile: ?string) => (s: HighlandStreamT<string>) => {
-  srcmapFile = srcmapFile || 'main.js.map';
+  srcmapFile = srcmapFile || '/usr/lib/main.js.map';
 
   const sourceMapStream = highland(createReadStream(srcmapFile));
 
