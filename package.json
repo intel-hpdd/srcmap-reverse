@@ -1,6 +1,6 @@
 {
   "name": "@iml/srcmap-reverse",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Reverses a minified stack trace using a source map.",
   "main": "dist/srcmap-reverse.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "flow": "flow",
     "eslint": "eslint ./",
     "rollup": "rollup -c rollup-config.js -i source/index.js -o $npm_package_main",
-    "postversion": "rm -rf ./dist; yarn rollup; cp node_modules/@iml/gui/dist/main.*.js.map dist/main.js.map"
+    "postversion": "rm -rf ./dist; yarn rollup"
   },
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,6 @@
   "devDependencies": {
     "@iml/flow-highland": "4.2.8",
     "@iml/flow-jasmine": "1.6.1",
-    "@iml/gui": "6.0.13",
     "babel-eslint": "7.2.3",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
@@ -37,6 +36,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-prettier": "^2.1.2",
     "flow-bin": "0.50.0",
+    "glob": "7.1.2",
     "highland": "3.0.0-beta.4",
     "jest": "^20.0.4",
     "lerna": "^2.0.0",
