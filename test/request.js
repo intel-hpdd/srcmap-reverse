@@ -10,7 +10,7 @@ const options = {
     'Transfer-Encoding': 'chunked'
   },
   method: 'POST',
-  socketPath: '/var/run/srcmap-reverse.sock'
+  socketPath: '/var/run/iml-srcmap-reverse.sock'
 };
 
 export default (trace: string) => {
