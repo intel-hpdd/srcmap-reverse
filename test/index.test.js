@@ -63,6 +63,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
       };
 
       jest.mock('cluster', () => mockCluster);
+      jest.spyOn(console, 'log');
 
       require('../source/index.js');
 
@@ -104,6 +105,19 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
         srcmapFile,
         trace
       });
+    });
+
+    it('should log the reversed trace', () => {
+      expect(console.log).toHaveBeenCalledWith(
+        '"at /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/iml/dashboard/dashboard-filter-controller.js:161:14\\n\
+at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:10795:20\\n\
+at fn /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:19036:16\\n\
+at this /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:12632:28\\n\
+at $eval /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:12730:22\\n\
+at $apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/angular/angular.js:19035:20\\n\
+at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/jquery/jquery.js:4371:8\\n\
+at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/jquery/jquery.js:4057:27"'
+      );
     });
 
     it('should produce a source code location.', () => {
