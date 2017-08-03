@@ -25,6 +25,7 @@ if (cluster.isMaster) {
         .map(JSON.parse)
         .flatMap(reverseInParallel)
         .map(xs => JSON.stringify(xs))
+        .tap(console.log)
         .pipe(response);
     }
   );
