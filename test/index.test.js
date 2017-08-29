@@ -147,33 +147,106 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
       };
       jest.mock('cluster', () => mockCluster);
 
-      mockReverser = jest.fn(() => () => highland([line]));
-      jest.mock('../source/reverser.js', () => mockReverser);
-
       jest.spyOn(process, 'on');
       process.send = jest.fn(() => {});
+    });
 
-      require('../source/index.js');
+    describe('with trace line', () => {
+      beforeEach(() => {
+        mockReverser = jest.fn(() => () => highland([line]));
+        jest.mock('../source/reverser.js', () => mockReverser);
 
-      handler = process.on.mock.calls[0][1];
+        require('../source/index.js');
 
-      handler({
-        line,
-        srcmapFile
+        handler = process.on.mock.calls[0][1];
+
+        handler({
+          line,
+          srcmapFile
+        });
+      });
+
+      it('should listen for message events', () => {
+        expect(process.on).toHaveBeenCalledWith(
+          'message',
+          expect.any(Function)
+        );
+      });
+
+      it('should call reverser with the sourcemap file', () => {
+        expect(mockReverser).toHaveBeenCalled();
+      });
+
+      it('should send the new line back to the master', () => {
+        expect(process.send).toHaveBeenCalledWith({
+          line: [line]
+        });
       });
     });
 
-    it('should listen for message events', () => {
-      expect(process.on).toHaveBeenCalledWith('message', expect.any(Function));
+    describe('with error message line', () => {
+      beforeEach(() => {
+        mockReverser = jest.fn(() => () => highland(['']));
+        jest.mock('../source/reverser.js', () => mockReverser);
+
+        require('../source/index.js');
+
+        handler = process.on.mock.calls[0][1];
+
+        handler({
+          line: 'Error: Come on sourcemaps.',
+          srcmapFile
+        });
+      });
+
+      it('should listen for message events', () => {
+        expect(process.on).toHaveBeenCalledWith(
+          'message',
+          expect.any(Function)
+        );
+      });
+
+      it('should call reverser with the sourcemap file', () => {
+        expect(mockReverser).toHaveBeenCalled();
+      });
+
+      it('should send the new line back to the master', () => {
+        expect(process.send).toHaveBeenCalledWith({
+          line: ['Error: Come on sourcemaps.']
+        });
+      });
     });
 
-    it('should call reverser with the sourcemap file', () => {
-      expect(mockReverser).toHaveBeenCalled();
-    });
+    describe('when line is null', () => {
+      beforeEach(() => {
+        mockReverser = jest.fn(() => () => highland(['']));
+        jest.mock('../source/reverser.js', () => mockReverser);
 
-    it('should send the new line back to the master', () => {
-      expect(process.send).toHaveBeenCalledWith({
-        line: [line]
+        require('../source/index.js');
+
+        handler = process.on.mock.calls[0][1];
+
+        handler({
+          line: null,
+          srcmapFile
+        });
+      });
+
+      it('should listen for message events', () => {
+        expect(process.on).toHaveBeenCalledWith(
+          'message',
+          expect.any(Function)
+        );
+      });
+
+      it('should call reverser with the sourcemap file', () => {
+        expect(mockReverser).toHaveBeenCalled();
+      });
+
+      it('should send the new line back to the master', () => {
+        expect(process.send).toHaveBeenCalledWith({
+          line: ['']
+        });
       });
     });
   });
@@ -216,6 +289,10 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
 
     it('should not send a line back to the master', () => {
       expect(process.send).not.toHaveBeenCalledWith({ line });
+    });
+
+    it('should send an empty array', () => {
+      expect(process.send).toHaveBeenCalledWith({ line: [] });
     });
   });
 });
