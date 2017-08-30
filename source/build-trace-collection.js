@@ -5,7 +5,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-const traceItemRegex = /(http.+):(\d+):(\d+)/;
+export const traceItemRegex = /(http.+):(\d+):(\d+)/;
 
 import type { LineData } from './srcmap-reverse.js';
 

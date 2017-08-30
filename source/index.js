@@ -42,7 +42,7 @@ if (cluster.isMaster) {
         .errors((e: Error) => {
           if (process.send) process.send({ error: e });
         })
-        .each(line => {
+        .each((line: string[]) => {
           if (process.send) process.send({ line });
         });
     }
