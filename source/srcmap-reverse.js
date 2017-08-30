@@ -6,7 +6,10 @@
 // license that can be found in the LICENSE file.
 
 import { SourceMapConsumer } from 'source-map';
-import buildTraceCollection from './build-trace-collection.js';
+import {
+  default as buildTraceCollection,
+  traceItemRegex
+} from './build-trace-collection.js';
 
 export type LineData = {
   compiledLine: string,
@@ -23,6 +26,8 @@ type PositionData = {
 };
 
 export default (srcMap: string, trace: string) => {
+  if (!traceItemRegex.exec(trace)) return trace;
+
   const smc = new SourceMapConsumer(srcMap);
   return buildTraceCollection(trace)
     .map(smc.originalPositionFor.bind(smc))

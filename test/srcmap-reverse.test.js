@@ -31,16 +31,18 @@ describe('src map reverse', () => {
     };
     jest.mock('source-map', () => mockSourceMapConsumer);
 
-    mockBuildTraceCollection = jest
-      .fn(() => 'buildTraceCollection')
-      .mockReturnValue([
-        {
-          compiledLine: 'compiledLine',
-          url: 'url',
-          line: 50,
-          column: 25
-        }
-      ]);
+    mockBuildTraceCollection = jest.fn(() => [
+      {
+        compiledLine: 'compiledLine',
+        url: 'url',
+        line: 50,
+        column: 25
+      }
+    ]);
+
+    // $FlowFixMe - traceItemRegex is indeed in buildTraceCollection
+    mockBuildTraceCollection.traceItemRegex = /(http.+):(\d+):(\d+)/;
+
     jest.mock(
       '../source/build-trace-collection.js',
       () => mockBuildTraceCollection

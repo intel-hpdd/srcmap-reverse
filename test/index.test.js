@@ -185,8 +185,10 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
     });
 
     describe('with error message line', () => {
+      let errorMessage;
       beforeEach(() => {
-        mockReverser = jest.fn(() => () => highland(['']));
+        errorMessage = 'Error: Come on sourcemaps.';
+        mockReverser = jest.fn(() => () => highland([errorMessage]));
         jest.mock('../source/reverser.js', () => mockReverser);
 
         require('../source/index.js');
@@ -194,7 +196,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
         handler = process.on.mock.calls[0][1];
 
         handler({
-          line: 'Error: Come on sourcemaps.',
+          line: errorMessage,
           srcmapFile
         });
       });
@@ -212,7 +214,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
 
       it('should send the new line back to the master', () => {
         expect(process.send).toHaveBeenCalledWith({
-          line: ['Error: Come on sourcemaps.']
+          line: [errorMessage]
         });
       });
     });

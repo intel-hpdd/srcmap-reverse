@@ -42,16 +42,8 @@ if (cluster.isMaster) {
         .errors((e: Error) => {
           if (process.send) process.send({ error: e });
         })
-        .each((newLine: string[]) => {
-          if (!process.send) return;
-
-          let lineToSend;
-          if (newLine.length === 0) lineToSend = [];
-          else if (newLine[0].length === 0 && line && line.length > 0)
-            lineToSend = [line];
-          else lineToSend = newLine;
-
-          process.send({ line: lineToSend });
+        .each((line: string[]) => {
+          if (process.send) process.send({ line });
         });
     }
   );
