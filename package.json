@@ -29,7 +29,7 @@
   "devDependencies": {
     "@iml/flow-highland": "4.3.0",
     "@iml/flow-jasmine": "1.6.1",
-    "babel-eslint": "7.2.3",
+    "babel-eslint": "8.0.2",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
@@ -39,15 +39,15 @@
     "eslint-plugin-flowtype": "^2.35.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-prettier": "^2.2.0",
-    "flow-bin": "0.50.0",
+    "flow-bin": "0.59.0",
     "glob": "7.1.2",
     "highland": "3.0.0-beta.4",
-    "jest": "^20.0.4",
+    "jest": "^21.2.1",
     "pre-commit": "1.2.2",
     "prettier": "^1.6.1",
-    "rollup": "^0.49.3",
+    "rollup": "^0.52.0",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-cleanup": "1.0.1",
+    "rollup-plugin-cleanup": "2.0.0",
     "rollup-plugin-commonjs": "^8.2.1",
     "rollup-plugin-node-resolve": "3.0.0"
   }
