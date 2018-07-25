@@ -1,0 +1,16 @@
+version: "3"
+services:
+  srcmap_reverse:
+    image: node:6
+    privileged: true
+    working_dir: /home/node/srcmap-reverse
+    user: node
+    volumes:
+      - ./dist:/home/node/srcmap-reverse
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    environment:
+      - NODE_ENV=production
+      - SRCMAP_REVERSE_PORT=8080
+    ports:
+      - "8080:8080"
+    command: "node srcmap-reverse.js"

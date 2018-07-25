@@ -5,6 +5,6 @@ RefuseManualStart=true
 [Service]
 Environment=NODE_ENV=production
 Environment=SRCMAP_REVERSE_FD=3
-ExecStart=/usr/bin/node /usr/lib/iml-srcmap-reverse/srcmap-reverse
+ExecStart=/usr/bin/node /usr/lib/node_modules/@iml/srcmap-reverse/dist/srcmap-reverse.js
 StandardOutput=journal+console
 StandardError=journal+console

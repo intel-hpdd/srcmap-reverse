@@ -1,23 +1,60 @@
-language: node_js
-node_js:
-- 6
-- 7
-cache: yarn
-before_script:
-- yarn global add codecov
-script:
-- yarn run eslint
-- yarn run flow
-- yarn run cover
-after_success:
-- codecov
-before_deploy: yarn postversion
-deploy:
-  skip_cleanup: true
-  provider: npm
-  email: joe.grund@intel.com
-  api_key:
-    secure: WrG/0QeNbESTxgB1HuFKlRAzCX1yHrYTm8GkCapNixG62y/yCw0O7CWKw/p2csw5kXxFdaP73C4Z/g5GHiQdQcq6HRhegfPyxcdeRyiY7z9kyzCEk3f7OFGeqa2+hXnGx24E+/Uf7TMlgWt9rRpXRyEUyebyHYiRtC1qULeT6nQlE1upajBpmPN9Jm8SQv1eXzWnRctWTH29h60uex3wTI63CFGch3Telah1y7gAFFzxobOVepPY5lMWh/60TFum00NTANX0FKuL3fkZSzUhTRgirjWlPkDiB1uUcxhRfTDwn5hEiS0e1cL/hQ8ufto35iEWunnnIvpYeK2Dcf4NMSHaCR+PUMr7wVQWDRQxalSHZH28nWVpgL+jsekkMSTMQpcDcobncwbLqmK9nOtEwmLx10viZMiQsllmHHtPLyjoNil0eId9sOfUL9bSSKYxyk9kgMhjTHeWdlQiQdW/7r3qy8wD3GHyz6hgXCb5bUNG6Gq2CGnaqsc2wNE0phpX8hH9sNwzxtVt1ZkF84GP02wDra0GX1AyTS+/BtoHcWjC1ZWRDXBacsFdlLyUlOB9URR6FVjEdCdndJaemWXP6hrUjc0SrEROeAY15ycyEInmfjsKbO5DZ9AOoS7c2492JPGaG28W9WmhouQ6z+k3uxgnk5xt2Su1fDq7jsnL6hU=
-  on:
-    tags: true
-    repo: intel-hpdd/srcmap-reverse
+sudo: required
+language: generic
+jobs:
+  include:
+    - stage: test
+      env: 
+        - Type=build
+      language: node_js
+      node_js:
+        - 6
+      before_install:
+        - npm i -g npm@latest
+      install: true
+      script: 
+        - npm run postversion
+    - stage: test
+      env: 
+        - Type=unit test
+      language: node_js
+      node_js:
+        -6
+      before_install:
+        - npm i -g npm@latest codecov
+      install: true
+      before_script:
+        - npm global add codecov
+      script: 
+        - npm run cover
+      after_success:
+        - codecov
+    - stage: deploy-npm
+      env: 
+        - Type=npm deploy
+      install: true
+      script:
+        - npm pub
+    - stage: cd
+      git:
+        depth: 999999
+      env: 
+        - Type=Continuous Deployment
+      script:
+        - docker run -dit --name copr -v $(pwd):/builddir imlteam/dotnet-docker /usr/sbin/init
+        - docker exec -it copr bash -c "yum install -y rpmdevtools copr-cli git"
+        - docker exec -it copr bash -c "cd /builddir && fake run build.fsx --release=$(git rev-list HEAD | wc -l) --copr-login=$COPR_LOGIN --copr-username=$COPR_USERNAME --copr-token=$COPR_TOKEN"
+    - stage: deploy-copr
+      env: 
+        - Type=Copr deploy
+      script:
+        - docker run -dit --name copr -v $(pwd):/builddir imlteam/dotnet-docker /usr/sbin/init
+        - docker exec -it copr bash -c "yum install -y rpmdevtools copr-cli"
+        - docker exec -it copr bash -c "cd /builddir && fake run build.fsx --copr-login=$COPR_LOGIN --copr-username=$COPR_USERNAME --copr-token=$COPR_TOKEN -- --prod"
+stages:
+  - test
+  - name: cd
+    if: branch = master AND type = push AND fork = false
+  - name: deploy-npm
+    if: branch =~ ^v\d+\.\d+\.\d+$
+  - name: deploy-copr
+    if: branch =~ ^v\d+\.\d+\.\d+-.+$

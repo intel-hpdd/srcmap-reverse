@@ -13,6 +13,10 @@ import reverser from './reverser.js';
 
 import type { HighlandStreamT } from 'highland';
 
+let serverPort = process.env.SRCMAP_REVERSE_PORT || 80;
+if (process.env.SRCMAP_REVERSE_FD != null) 
+  serverPort = { fd: parseInt(process.env.SRCMAP_REVERSE_FD, 10) };
+
 if (cluster.isMaster) {
   const server = http.createServer(
     (request: http.IncomingMessage, response: http.ServerResponse) => {
@@ -30,7 +34,7 @@ if (cluster.isMaster) {
     }
   );
 
-  server.listen({ fd: parseInt(process.env.SRCMAP_REVERSE_FD, 10) });
+  server.listen(serverPort);
 } else {
   process.on(
     'message',
