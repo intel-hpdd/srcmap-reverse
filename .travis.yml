@@ -10,7 +10,6 @@ jobs:
         - 6
       before_install:
         - npm i -g npm@latest
-      install: true
       script: 
         - npm run postversion
     - stage: test
