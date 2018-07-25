@@ -17,10 +17,9 @@ jobs:
         - Type=unit test
       language: node_js
       node_js:
-        -6
+        - 6
       before_install:
         - npm i -g npm@latest codecov
-      install: true
       before_script:
         - npm global add codecov
       script: 
