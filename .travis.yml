@@ -20,8 +20,6 @@ jobs:
         - 6
       before_install:
         - npm i -g npm@latest codecov
-      before_script:
-        - npm global add codecov
       script: 
         - npm run cover
       after_success:
