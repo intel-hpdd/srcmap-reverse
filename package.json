@@ -6,7 +6,8 @@
   "scripts": {
     "pretest": "rm -rf ./dist && npm run rollup",
     "test": "jest -c ./jest.config.unit.js --silent",
-    "integration-test": "npm run pretest && jest -c ./jest.config.integration.js",
+    "preintegration-test": "npm run pretest",
+    "integration-test": "jest -c ./jest.config.integration.js",
     "cover": "npm run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",
