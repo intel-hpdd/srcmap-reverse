@@ -1,8 +1,19 @@
 // @flow
-
 import http from 'http';
+import { getPort } from '../source/port.js';
 
-const options = {
+import type { Port } from '../source/port.js';
+
+const getPortOrSocketPath = (port:Port) => {
+  return (typeof port === 'object') ? { socketPath: '/var/run/iml-srcmap-reverse.sock' } : { port };
+};
+
+const port = getPort(
+  process.env.SRCMAP_REVERSE_PORT, 
+  process.env.SRCMAP_REVERSE_FD
+);
+
+let options = {
   headers: {
     Connection: 'close',
     Accept: 'application/json',
@@ -10,7 +21,7 @@ const options = {
     'Transfer-Encoding': 'chunked'
   },
   method: 'POST',
-  socketPath: '/var/run/iml-srcmap-reverse.sock'
+  ...getPortOrSocketPath(port)
 };
 
 export default (trace: string) => {

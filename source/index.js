@@ -10,12 +10,9 @@ import highland from 'highland';
 import reverseInParallel from './reverse-in-parallel.js';
 import cluster from 'cluster';
 import reverser from './reverser.js';
+import { getPort } from './port.js';
 
 import type { HighlandStreamT } from 'highland';
-
-let serverPort = process.env.SRCMAP_REVERSE_PORT || 80;
-if (process.env.SRCMAP_REVERSE_FD != null) 
-  serverPort = { fd: parseInt(process.env.SRCMAP_REVERSE_FD, 10) };
 
 if (cluster.isMaster) {
   const server = http.createServer(
@@ -34,7 +31,8 @@ if (cluster.isMaster) {
     }
   );
 
-  server.listen(serverPort);
+  const port = getPort(process.env.SRCMAP_REVERSE_PORT, process.env.SRCMAP_REVERSE_FD);
+  server.listen(port);
 } else {
   process.on(
     'message',

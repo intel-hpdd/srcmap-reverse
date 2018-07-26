@@ -59,6 +59,11 @@ rm -rf %{buildroot}
 %attr(0644,root,root)%{_unitdir}/%{name}.service
 
 %changelog
+* Thu Jul 26 2018 Will Johnson <wjohnson@whamcloud.com> - 3.0.7-1
+- Systemd updates
+- Dockerize
+- Continous deployment
+
 * Thu Aug 3 2017 Will Johnson <william.c.johnson@intel.com> - 3.0.6-1
 - Add logging for each reversed trace.
 

@@ -1,23 +1,17 @@
 sudo: required
-language: generic
+language: node_js
+node_js:
+  - 6
 jobs:
   include:
     - stage: test
       env: 
         - Type=build
-      language: node_js
-      node_js:
-        - 6
-      before_install:
-        - npm i -g npm@latest
       script: 
         - npm run postversion
     - stage: test
       env: 
         - Type=unit test
-      language: node_js
-      node_js:
-        - 6
       before_install:
         - npm i -g npm@latest codecov
       script: 
@@ -27,7 +21,6 @@ jobs:
     - stage: deploy-npm
       env: 
         - Type=npm deploy
-      install: true
       script:
         - npm pub
     - stage: cd
@@ -38,7 +31,7 @@ jobs:
       script:
         - docker run -dit --name copr -v $(pwd):/builddir imlteam/dotnet-docker /usr/sbin/init
         - docker exec -it copr bash -c "yum install -y rpmdevtools copr-cli git"
-        - docker exec -it copr bash -c "cd /builddir && fake run build.fsx --release=$(git rev-list HEAD | wc -l) --copr-login=$COPR_LOGIN --copr-username=$COPR_USERNAME --copr-token=$COPR_TOKEN"
+        - docker exec -it copr bash -c "cd /builddir && fake run build.fsx --release=\$(git rev-list HEAD | wc -l) --copr-login=$COPR_LOGIN --copr-username=$COPR_USERNAME --copr-token=$COPR_TOKEN"
     - stage: deploy-copr
       env: 
         - Type=Copr deploy

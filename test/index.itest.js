@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import request from './request.js';
 
-xdescribe('srcmap-reverse-server integration test', () => {
+describe('srcmap-reverse-server integration test', () => {
   let trace, reversedFixture;
 
   beforeEach(() => {
@@ -22,8 +22,8 @@ xdescribe('srcmap-reverse-server integration test', () => {
   });
 
   it('should return line and column numbers for each line in a minified stack trace', async () => {
-    const result = await request(trace);
-    expect(result).toBe(reversedFixture);
+      const result = await request(trace);
+      expect(result).toBe(reversedFixture);
   });
 
   describe('to test support for parellelized deminification', () => {
@@ -31,7 +31,7 @@ xdescribe('srcmap-reverse-server integration test', () => {
 
     beforeEach(() => {
       single = trace.split('\n')[1];
-      fixtureSingle = reversedFixture.split('\n')[0];
+      fixtureSingle = reversedFixture.split('\n')[1];
     });
 
     it('should return line and column numbers for a single minified line', async () => {

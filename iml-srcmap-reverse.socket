@@ -1,5 +1,6 @@
 [Unit]
 Description=Source Map Reverse Socket
+PartOf=iml-manager.target
 
 [Socket]
 ListenStream=/var/run/iml-srcmap-reverse.sock
