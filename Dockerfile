@@ -1,12 +1,10 @@
-FROM node:6
+FROM node:alpine
 WORKDIR /home/node/srcmap-reverse
 COPY package*.json ./
 COPY source ./source
-COPY test ./test
-COPY *config*.js ./
+COPY rollup-config.js ./
 COPY .babelrc ./
-COPY test/fixtures/built-fd5ce21b.js.map.json /tmp
-RUN npm install && npm run postversion
+RUN npm install && npm run postversion && rm -rf source node_modules package.json package-lock.json /root/.npm
 
 EXPOSE 80
 CMD ["node", "./dist/srcmap-reverse.js"]

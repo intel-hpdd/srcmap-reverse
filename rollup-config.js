@@ -26,7 +26,6 @@ export default {
     commonjs(),
     cleanup()
   ],
-  sourceMap: true,
   format: 'cjs',
   external: ['http', 'util', 'events', 'string_decoder', 'cluster', 'fs']
 };

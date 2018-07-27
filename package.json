@@ -6,8 +6,9 @@
   "scripts": {
     "pretest": "rm -rf ./dist && npm run rollup",
     "test": "jest -c ./jest.config.unit.js --silent",
-    "preintegration-test": "npm run pretest",
-    "integration-test": "jest -c ./jest.config.integration.js",
+    "preintegration-test": "docker-compose up -d", 
+    "integration-test": "SRCMAP_REVERSE_PORT=8080 jest -c ./jest.config.integration.js",
+    "postintegration-test": "docker-compose down",
     "cover": "npm run test -- --coverage",
     "flow": "flow",
     "eslint": "eslint ./",

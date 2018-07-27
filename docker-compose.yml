@@ -1,11 +1,13 @@
 version: "3"
 services:
   srcmap_reverse:
+    build:
+      context: .
     image: srcmap-reverse
     working_dir: /home/node/srcmap-reverse
     user: node
     volumes:
-      - ./:/home/node/srcmap-reverse
+      - "./test/fixtures/built-fd5ce21b.js.map.json:/tmp/built-fd5ce21b.js.map.json"
     environment:
       - NODE_ENV=production
       - SRCMAP_REVERSE_PORT=8080

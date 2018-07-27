@@ -1,7 +1,7 @@
 sudo: required
 language: node_js
 node_js:
-  - 6
+  - 10
 jobs:
   include:
     - stage: test
@@ -18,6 +18,14 @@ jobs:
         - npm run cover
       after_success:
         - codecov
+    - stage: test
+      env: 
+        - Type=integration test
+      before_install:
+        - npm i -g npm@latest
+      script: 
+        - docker build -t srcmap-reverse .
+        - npm run integration-test
     - stage: deploy-npm
       env: 
         - Type=npm deploy
