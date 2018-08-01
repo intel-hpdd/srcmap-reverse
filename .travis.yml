@@ -24,7 +24,6 @@ jobs:
       before_install:
         - npm i -g npm@latest
       script: 
-        - docker build -t srcmap-reverse .
         - npm run integration-test
     - stage: deploy-npm
       env: 
