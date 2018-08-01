@@ -4,7 +4,11 @@ COPY package*.json ./
 COPY source ./source
 COPY rollup-config.js ./
 COPY .babelrc ./
-RUN npm install && npm run postversion && rm -rf source node_modules package.json package-lock.json /root/.npm
+RUN npm install && \
+    npm run postversion && \
+    rm -rf source node_modules package*.json rollup-config.js .babelrc /root/.npm && \
+    mv dist/* . && \
+    rm -rf dist
 
 EXPOSE 80
-CMD ["node", "./dist/srcmap-reverse.js"]
+CMD ["node", "./srcmap-reverse.js"]

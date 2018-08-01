@@ -12,9 +12,10 @@ import glob from 'glob';
 
 import type { HighlandStreamT } from 'highland';
 
+const defaultSrcmapFile = process.env.SRCMAP_FILE || '/usr/lib/iml-manager/iml-gui/main.*.js.map';
+
 export default (srcmapFile: ?string) => (s: HighlandStreamT<string>) => {
-  srcmapFile =
-    srcmapFile || glob.sync('/usr/lib/iml-manager/iml-gui/main.*.js.map')[0];
+  srcmapFile = srcmapFile || glob.sync(defaultSrcmapFile)[0];
   const sourceMapStream = highland(createReadStream(srcmapFile));
 
   return highland([sourceMapStream, s])
