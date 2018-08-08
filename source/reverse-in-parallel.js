@@ -8,13 +8,7 @@
 import highland from 'highland';
 import cluster from 'cluster';
 
-export default ({
-  trace,
-  srcmapFile
-}: {
-  trace: string,
-  srcmapFile: ?string
-}) => {
+export default ({ trace, srcmapFile }: { trace: string, srcmapFile: ?string }) => {
   const lines = trace.split('\n');
 
   return highland(lines)

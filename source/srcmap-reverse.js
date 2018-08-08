@@ -6,10 +6,7 @@
 // license that can be found in the LICENSE file.
 
 import { SourceMapConsumer } from 'source-map';
-import {
-  default as buildTraceCollection,
-  traceItemRegex
-} from './build-trace-collection.js';
+import { default as buildTraceCollection, traceItemRegex } from './build-trace-collection.js';
 
 export type LineData = {
   compiledLine: string,

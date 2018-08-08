@@ -9,16 +9,7 @@ const line =
 const srcmapFile = '/tmp/built-fd5ce21b.js.map.json';
 
 describe('srcmap-reverse-server unit test', () => {
-  let arr,
-    mockHttp,
-    server,
-    trace,
-    reversedTrace,
-    mockReverseInParallel,
-    mockCluster,
-    output,
-    handler,
-    mockReverser;
+  let arr, mockHttp, server, trace, reversedTrace, mockReverseInParallel, mockCluster, output, handler, mockReverser;
 
   beforeEach(() => {
     trace = `Error: Come on sourcemaps.
@@ -169,10 +160,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
       });
 
       it('should listen for message events', () => {
-        expect(process.on).toHaveBeenCalledWith(
-          'message',
-          expect.any(Function)
-        );
+        expect(process.on).toHaveBeenCalledWith('message', expect.any(Function));
       });
 
       it('should call reverser with the sourcemap file', () => {
@@ -204,10 +192,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
       });
 
       it('should listen for message events', () => {
-        expect(process.on).toHaveBeenCalledWith(
-          'message',
-          expect.any(Function)
-        );
+        expect(process.on).toHaveBeenCalledWith('message', expect.any(Function));
       });
 
       it('should call reverser with the sourcemap file', () => {
@@ -237,10 +222,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
       });
 
       it('should listen for message events', () => {
-        expect(process.on).toHaveBeenCalledWith(
-          'message',
-          expect.any(Function)
-        );
+        expect(process.on).toHaveBeenCalledWith('message', expect.any(Function));
       });
 
       it('should call reverser with the sourcemap file', () => {
@@ -265,9 +247,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
       };
       jest.mock('cluster', () => mockCluster);
 
-      mockReverser = jest.fn(() => () =>
-        highland([{ __HighlandStreamError__: true, error: bigBadError }])
-      );
+      mockReverser = jest.fn(() => () => highland([{ __HighlandStreamError__: true, error: bigBadError }]));
       jest.mock('../source/reverser.js', () => mockReverser);
 
       jest.spyOn(process, 'on');

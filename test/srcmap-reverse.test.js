@@ -3,31 +3,21 @@
 import { describe, beforeEach, it, expect, jest } from './jasmine.js';
 
 describe('src map reverse', () => {
-  let mockBuildTraceCollection,
-    mockSourceMapConsumer,
-    smc,
-    srcMap,
-    srcMapReverse,
-    trace,
-    result;
+  let mockBuildTraceCollection, mockSourceMapConsumer, smc, srcMap, srcMapReverse, trace, result;
   beforeEach(() => {
     smc = {
-      originalPositionFor: jest
-        .fn(() => 'originalPositionFor')
-        .mockReturnValue({
-          line: 50,
-          column: 25,
-          source: 'source',
-          name: 'smcName'
-        })
+      originalPositionFor: jest.fn(() => 'originalPositionFor').mockReturnValue({
+        line: 50,
+        column: 25,
+        source: 'source',
+        name: 'smcName'
+      })
     };
 
     mockSourceMapConsumer = {
-      SourceMapConsumer: jest
-        .fn(() => 'SourceMapConsumer')
-        .mockImplementation(() => {
-          return smc;
-        })
+      SourceMapConsumer: jest.fn(() => 'SourceMapConsumer').mockImplementation(() => {
+        return smc;
+      })
     };
     jest.mock('source-map', () => mockSourceMapConsumer);
 
@@ -43,10 +33,7 @@ describe('src map reverse', () => {
     // $FlowFixMe - traceItemRegex is indeed in buildTraceCollection
     mockBuildTraceCollection.traceItemRegex = /(http.+):(\d+):(\d+)/;
 
-    jest.mock(
-      '../source/build-trace-collection.js',
-      () => mockBuildTraceCollection
-    );
+    jest.mock('../source/build-trace-collection.js', () => mockBuildTraceCollection);
 
     srcMap = JSON.stringify({
       version: 1,
@@ -66,9 +53,7 @@ describe('src map reverse', () => {
   });
 
   it('should instantiate SourceMapConsumer', () => {
-    expect(mockSourceMapConsumer.SourceMapConsumer).toHaveBeenCalledWith(
-      srcMap
-    );
+    expect(mockSourceMapConsumer.SourceMapConsumer).toHaveBeenCalledWith(srcMap);
   });
 
   it('should call buildTraceCollection', () => {
