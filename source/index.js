@@ -10,6 +10,7 @@ import highland from 'highland';
 import reverseInParallel from './reverse-in-parallel.js';
 import cluster from 'cluster';
 import reverser from './reverser.js';
+import { getPort } from './port.js';
 
 import type { HighlandStreamT } from 'highland';
 
@@ -30,14 +31,15 @@ if (cluster.isMaster) {
     }
   );
 
-  server.listen({ fd: parseInt(process.env.SRCMAP_REVERSE_FD, 10) });
+  const port = getPort();
+  server.listen(port);
 } else {
   process.on(
     'message',
-    ({ line, srcmapFile }: { line: string, srcmapFile: ?string }) => {
+    ({ line }: { line: string }) => {
       highland([line])
         .otherwise(highland(['']))
-        .through(reverser(srcmapFile))
+        .through(reverser())
         .collect()
         .errors((e: Error) => {
           if (process.send) process.send({ error: e });

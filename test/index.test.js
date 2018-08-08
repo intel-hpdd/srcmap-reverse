@@ -40,7 +40,9 @@ at $apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/ch
 at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/jquery/jquery.js:4371:8
 at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/bower_components/jquery/jquery.js:4057:27`;
 
-    process.env.SRCMAP_REVERSE_FD = '3';
+    process.env.SRCMAP_REVERSE_PORT = '8080';
+    process.env.LISTEN_PID = '1';
+    process.env.SOURCE_MAP_PATH = '/usr/lib/iml-manager/iml-gui/main.fc123.js.map';
 
     server = {
       listen: jest.fn(() => 'listen')
@@ -282,7 +284,7 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
     });
 
     it('should call reverser with the sourcemap file', () => {
-      expect(mockReverser).toHaveBeenCalledWith(srcmapFile);
+      expect(mockReverser).toHaveBeenCalledWith();
     });
 
     it('should send the error back to the master', () => {
