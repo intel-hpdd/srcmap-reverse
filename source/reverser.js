@@ -8,11 +8,18 @@
 import { createReadStream } from 'fs';
 import srcmapReverse from './srcmap-reverse.js';
 import highland from 'highland';
+import glob from 'glob';
 
 import type { HighlandStreamT } from 'highland';
 
-export default (srcmapFile: string) => (s: HighlandStreamT<string>) => {
-  const sourceMapStream = highland(createReadStream(srcmapFile));
+if (process.env.SOURCE_MAP_PATH == null)
+  throw new Error('SOURCE_MAP_PATH environment variable must be set to load the sourcemap file.');
+
+const sourceMapPath = process.env.SOURCE_MAP_PATH;
+
+export default () => (s: HighlandStreamT<string>) => {
+  
+  const sourceMapStream = highland(createReadStream(glob.sync(sourceMapPath)[0]));
 
   return highland([sourceMapStream, s])
     .flatMap(s =>

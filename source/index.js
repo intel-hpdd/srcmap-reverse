@@ -36,10 +36,10 @@ if (cluster.isMaster) {
 } else {
   process.on(
     'message',
-    ({ line, srcmapFile }: { line: string, srcmapFile: string }) => {
+    ({ line }: { line: string }) => {
       highland([line])
         .otherwise(highland(['']))
-        .through(reverser(srcmapFile))
+        .through(reverser())
         .collect()
         .errors((e: Error) => {
           if (process.send) process.send({ error: e });
