@@ -31,14 +31,13 @@ describe('reverser', () => {
       })
     };
     jest.mock('glob', () => mockGlob);
-
-    process.env.SOURCE_MAP_PATH = '/usr/lib/iml-manager/iml-gui/main.*.js.map';
-
-    reverser = require('../source/reverser.js').default;
   });
 
-  describe('with a sourcmap file specified', () => {
+  describe('with a sourcemap file specified', () => {
     beforeEach(done => {
+      process.env.SOURCE_MAP_PATH = '/usr/lib/iml-manager/iml-gui/main.*.js.map';
+      reverser = require('../source/reverser.js').default;
+
       reverser()(
         highland([
           'at Object.DashboardFilterCtrl.$scope.filter.onFilterView (https://localhost:8000/static/chroma_ui/built-fd5ce21b.js:38:7096)'
@@ -47,6 +46,10 @@ describe('reverser', () => {
         spy(x);
         done();
       });
+    });
+
+    afterEach(() => {
+      delete process.env.SOURCE_MAP_PATH;
     });
 
     it('should call createReadStream', () => {
@@ -63,6 +66,14 @@ describe('reverser', () => {
 
     it('should return the reversed line', () => {
       expect(spy).toHaveBeenCalledWith(reversedLine);
+    });
+  });
+
+  describe('with a sourcemap file not specified', () => {
+    it('should throw an error', () => {
+      expect(() => require('../source/reverser.js')).toThrow(
+        new Error('SOURCE_MAP_PATH environment variable must be set to load the sourcemap file.')
+      );
     });
   });
 });

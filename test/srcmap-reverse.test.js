@@ -76,4 +76,10 @@ describe('src map reverse', () => {
   it('should return the reversed trace', () => {
     expect(result).toBe('at smcName source:50:25');
   });
+
+  it('should return the trace if it does not match the traceItemRegex', () => {
+    const trace = 'non-matching trace';
+    result = srcMapReverse(srcMap, trace);
+    expect(result).toEqual(trace);
+  });
 });
