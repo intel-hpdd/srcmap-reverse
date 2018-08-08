@@ -7,23 +7,17 @@ describe('srcmap-reverse-server integration test', () => {
   let trace, reversedFixture;
 
   beforeEach(() => {
-    trace = fs.readFileSync(
-      path.join(__dirname, 'fixtures', 'trace.txt'),
-      'utf8'
-    );
+    trace = fs.readFileSync(path.join(__dirname, 'fixtures', 'trace.txt'), 'utf8');
     reversedFixture = fs
-      .readFileSync(
-        path.join(__dirname, 'fixtures', 'reversed-trace.txt'),
-        'utf8'
-      )
+      .readFileSync(path.join(__dirname, 'fixtures', 'reversed-trace.txt'), 'utf8')
       .split('\n')
       .slice(0, -1)
       .join('\n');
   });
 
   it('should return line and column numbers for each line in a minified stack trace', async () => {
-      const result = await request(trace);
-      expect(result).toBe(reversedFixture);
+    const result = await request(trace);
+    expect(result).toBe(reversedFixture);
   });
 
   describe('to test support for parellelized deminification', () => {

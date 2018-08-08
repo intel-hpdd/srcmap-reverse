@@ -4,13 +4,13 @@ import { getPort } from '../source/port.js';
 
 import type { Port } from '../source/port.js';
 
-const getPortOrSocketPath = (port:Port) => {
-  return (typeof port === 'object') ? { socketPath: '/var/run/iml-srcmap-reverse.sock' } : { port };
+const getPortOrSocketPath = (port: Port) => {
+  return typeof port === 'object' ? { socketPath: '/var/run/iml-srcmap-reverse.sock' } : { port };
 };
 
 const port = getPort();
 
-let options = {
+const options = {
   headers: {
     Connection: 'close',
     Accept: 'application/json',

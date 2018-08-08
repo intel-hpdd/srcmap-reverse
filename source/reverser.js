@@ -19,7 +19,6 @@ const sourceMapPath = process.env.SOURCE_MAP_PATH;
 const sourceMapFile = glob.sync(sourceMapPath)[0];
 
 export default () => (s: HighlandStreamT<string>) => {
-  
   const sourceMapStream = highland(createReadStream(sourceMapFile));
 
   return highland([sourceMapStream, s])
