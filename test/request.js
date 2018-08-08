@@ -8,10 +8,7 @@ const getPortOrSocketPath = (port:Port) => {
   return (typeof port === 'object') ? { socketPath: '/var/run/iml-srcmap-reverse.sock' } : { port };
 };
 
-const port = getPort(
-  process.env.SRCMAP_REVERSE_PORT, 
-  process.env.SRCMAP_REVERSE_FD
-);
+const port = getPort();
 
 let options = {
   headers: {

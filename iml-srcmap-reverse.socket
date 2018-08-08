@@ -1,9 +1,11 @@
 [Unit]
 Description=Source Map Reverse Socket
 PartOf=iml-manager.target
+Before=nginx.service
 
 [Socket]
 ListenStream=/var/run/iml-srcmap-reverse.sock
+RemoveOnStop=true
 
 [Install]
 WantedBy=sockets.target

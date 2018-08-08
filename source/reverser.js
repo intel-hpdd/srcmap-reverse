@@ -8,14 +8,10 @@
 import { createReadStream } from 'fs';
 import srcmapReverse from './srcmap-reverse.js';
 import highland from 'highland';
-import glob from 'glob';
 
 import type { HighlandStreamT } from 'highland';
 
-const defaultSrcmapFile = process.env.SRCMAP_FILE || '/usr/lib/iml-manager/iml-gui/main.*.js.map';
-
-export default (srcmapFile: ?string) => (s: HighlandStreamT<string>) => {
-  srcmapFile = srcmapFile || glob.sync(defaultSrcmapFile)[0];
+export default (srcmapFile: string) => (s: HighlandStreamT<string>) => {
   const sourceMapStream = highland(createReadStream(srcmapFile));
 
   return highland([sourceMapStream, s])

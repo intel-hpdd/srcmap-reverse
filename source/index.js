@@ -31,12 +31,12 @@ if (cluster.isMaster) {
     }
   );
 
-  const port = getPort(process.env.SRCMAP_REVERSE_PORT, process.env.SRCMAP_REVERSE_FD);
+  const port = getPort();
   server.listen(port);
 } else {
   process.on(
     'message',
-    ({ line, srcmapFile }: { line: string, srcmapFile: ?string }) => {
+    ({ line, srcmapFile }: { line: string, srcmapFile: string }) => {
       highland([line])
         .otherwise(highland(['']))
         .through(reverser(srcmapFile))

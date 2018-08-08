@@ -7,10 +7,13 @@
 
 export type Port = number | { fd: number };
 
-export const getPort = (port:?string, fd:?string) : Port => {
-  let serverPort = parseInt(port, 10) || 80;
-  if (fd != null) 
-    serverPort = { fd: parseInt(fd, 10) };
-  
-  return serverPort;
-}
+const isSystemd: boolean = process.env.LISTEN_PID != null ? parseInt(process.env.LISTEN_PID, 10) > 0 : false;
+
+export const getPort = (): Port => {
+  if (isSystemd) return { fd: 3 };
+  else if (process.env.SRCMAP_REVERSE_PORT != null) return parseInt(process.env.SRCMAP_REVERSE_PORT, 10);
+  else
+    throw new Error(
+      'If srcmap-reverse is not running in systemd, the SRCMAP_REVERSE_PORT environment variable is required.'
+    );
+};

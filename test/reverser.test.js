@@ -8,7 +8,7 @@ const reversedLine =
   'at /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chroma_ui/iml/dashboard/dashboard-filter-controller.js:161:14';
 
 describe('reverser', () => {
-  let mockSrcMapReverse, mockFs, sourceMapStream, reverser, mockGlob, spy;
+  let mockSrcMapReverse, mockFs, sourceMapStream, reverser, spy;
 
   beforeEach(() => {
     spy = jest.fn(() => 'spy');
@@ -23,11 +23,6 @@ describe('reverser', () => {
       createReadStream: jest.fn(() => sourceMapStream)
     };
     jest.mock('fs', () => mockFs);
-
-    mockGlob = {
-      sync: jest.fn(() => ['/usr/lib/iml-manager/iml-gui/main.fc123.js.map'])
-    };
-    jest.mock('glob', () => mockGlob);
 
     reverser = require('../source/reverser.js').default;
   });
@@ -60,32 +55,6 @@ describe('reverser', () => {
 
     it('should return the reversed line', () => {
       expect(spy).toHaveBeenCalledWith(reversedLine);
-    });
-  });
-
-  describe('without a sourcemap file specified', () => {
-    beforeEach(done => {
-      reverser()(
-        highland([
-          'at Object.DashboardFilterCtrl.$scope.filter.onFilterView (https://localhost:8000/static/chroma_ui/built-fd5ce21b.js:38:7096)'
-        ])
-      ).each(x => {
-        spy(x);
-        done();
-      });
-    });
-
-    it('should call glob.sync', () => {
-      expect(mockGlob.sync).toHaveBeenCalledWith(
-        '/usr/lib/iml-manager/iml-gui/main.*.js.map'
-      );
-    });
-
-    it('should call createReadStream', () => {
-      const sourceMapPath: string = mockFs.createReadStream.mock.calls[0][0];
-      expect(
-        sourceMapPath.indexOf('/usr/lib/iml-manager/iml-gui/main.fc123.js.map')
-      ).toBeGreaterThan(-1);
     });
   });
 });
