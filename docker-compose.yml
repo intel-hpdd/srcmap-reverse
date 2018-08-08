@@ -6,9 +6,9 @@ services:
     image: srcmap-reverse
     volumes:
       - ./test/fixtures/built-fd5ce21b.js.map.json:/tmp/built-fd5ce21b.js.map.json
-      - ./test/iml-settings.conf:/var/lib/chroma/iml-settings.conf
     environment:
       - NODE_ENV=production
       - SRCMAP_REVERSE_PORT=8080
+      - SOURCE_MAP_PATH=/tmp/built-*.js.map.json
     ports:
       - "8080:8080"

@@ -16,10 +16,11 @@ if (process.env.SOURCE_MAP_PATH == null)
   throw new Error('SOURCE_MAP_PATH environment variable must be set to load the sourcemap file.');
 
 const sourceMapPath = process.env.SOURCE_MAP_PATH;
+const sourceMapFile = glob.sync(sourceMapPath)[0];
 
 export default () => (s: HighlandStreamT<string>) => {
   
-  const sourceMapStream = highland(createReadStream(glob.sync(sourceMapPath)[0]));
+  const sourceMapStream = highland(createReadStream(sourceMapFile));
 
   return highland([sourceMapStream, s])
     .flatMap(s =>
