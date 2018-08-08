@@ -49,6 +49,12 @@ at apply /Users/wkseymou/projects/chroma/chroma-manager/chroma_ui_new/source/chr
     jest.mock('../source/reverse-in-parallel', () => mockReverseInParallel);
   });
 
+  afterEach(() => {
+    delete process.env.SRCMAP_REVERSE_PORT;
+    delete process.env.LISTEN_PID;
+    delete process.env.SOURCE_MAP_PATH;
+  });
+
   describe('master', () => {
     beforeEach(done => {
       mockCluster = {
