@@ -1,8 +1,10 @@
 %define base_name srcmap-reverse
 
 Name:       iml-%{base_name}
-Version:    @version@
+Version:    3.0.7
+# Release Start
 Release:    1%{?dist}
+# Release End
 Summary:    Service that reverses source map traces.
 License:    MIT
 Group:      System Environment/Libraries
