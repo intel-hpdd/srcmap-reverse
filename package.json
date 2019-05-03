@@ -13,9 +13,7 @@
     "flow": "flow",
     "eslint": "eslint ./",
     "rollup": "rollup -c rollup-config.js -i source/index.js -o $npm_package_main",
-    "postversion": "rm -rf ./dist; npm run rollup",
-    "local-deploy-copr": "rm -rf .fake _topdir build.fsx.lock && docker run -it --name copr -v $(pwd):/builddir imlteam/dotnet-docker bash -c \"yum install -y rpmdevtools copr-cli && cd /builddir && fake run build.fsx --release=$(git rev-list HEAD | wc -l) --copr-login=$COPR_LOGIN --copr-username=$COPR_USERNAME --copr-token=$COPR_TOKEN\"",
-    "local-build-rpm": "rm -rf .fake _topdir build.fsx.lock && docker run -it --name copr -v $(pwd):/builddir imlteam/dotnet-docker bash -c \"yum install -y rpmdevtools copr-cli nodejs-packaging && cd /builddir && fake run build.fsx --target RPM\""
+    "postversion": "rm -rf ./dist; npm run rollup"
   },
   "publishConfig": {
     "access": "public"

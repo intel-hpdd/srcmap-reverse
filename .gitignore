@@ -5,9 +5,6 @@ node_modules
 .vscode
 dist
 _topdir
-.fake
 packages
 paket-files
 copr-key
-fake.cmd
-fake.sh
