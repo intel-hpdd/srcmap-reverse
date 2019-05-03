@@ -3,7 +3,7 @@
 Name:       iml-%{base_name}
 Version:    3.0.7
 # Release Start
-Release:    0.1556917740%{?dist}
+Release:    1%{?dist}
 # Release End
 Summary:    Service that reverses source map traces.
 License:    MIT

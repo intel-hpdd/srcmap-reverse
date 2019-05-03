@@ -10,7 +10,7 @@ TMPDIR:=$(shell mktemp -d)
 	mkdir -p ${TMPDIR}/_topdir/SOURCES
 	mkdir -p ${TMPDIR}/scratch
 	cp -r ${BUILDROOT}/source ${BUILDROOT}/.babelrc ${BUILDROOT}/iml-srcmap-reverse.service ${BUILDROOT}/iml-srcmap-reverse.socket ${BUILDROOT}/*.json ${BUILDROOT}/*.js ${BUILDROOT}/srcmap-reverse.spec ${TMPDIR}/scratch
-	source ~/.bash_profile && cd ${TMPDIR}/scratch && npm i && npm run postversion && npm pack
+	cd ${TMPDIR}/scratch && npm i && npm run postversion && npm pack
 	mv -f ${TMPDIR}/scratch/iml-srcmap-reverse*.tgz ${TMPDIR}/_topdir/SOURCES/
 	mv -f ${TMPDIR}/scratch/iml-srcmap-reverse.service ${TMPDIR}/_topdir/SOURCES
 	mv -f ${TMPDIR}/scratch/iml-srcmap-reverse.socket ${TMPDIR}/_topdir/SOURCES
