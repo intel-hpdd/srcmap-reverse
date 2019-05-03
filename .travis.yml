@@ -39,7 +39,7 @@ jobs:
         - docker run -dit --name copr -v $(pwd):/builddir imlteam/dotnet-docker /usr/sbin/init
         - docker exec -it copr bash -c "yum install -y rpmdevtools copr-cli git"
         - docker exec -it copr bash -c "cd /builddir && fake run build.fsx --release=\$(git rev-list HEAD | wc -l) --copr-login=$COPR_LOGIN --copr-username=$COPR_USERNAME --copr-token=$COPR_TOKEN"
-    - stage: deploy-copr
+    - stage: deploy-copr-r5.0
       env: 
         - Type=Copr deploy
       script:
@@ -52,5 +52,5 @@ stages:
     if: branch = master AND type = push AND fork = false
   - name: deploy-npm
     if: branch =~ ^v\d+\.\d+\.\d+$
-  - name: deploy-copr
-    if: branch =~ ^v\d+\.\d+\.\d+-.+$
+  - name: deploy-copr-r5.0
+    if: branch =~ ^v\d+\.\d+\.\d+-.+-r5\.0$
