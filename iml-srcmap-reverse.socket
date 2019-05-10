@@ -8,4 +8,4 @@ ListenStream=/var/run/iml-srcmap-reverse.sock
 RemoveOnStop=true
 
 [Install]
-WantedBy=sockets.target
+WantedBy=iml-manager.target
