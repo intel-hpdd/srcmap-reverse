@@ -1,7 +1,7 @@
 %define base_name srcmap-reverse
 
 Name:       iml-%{base_name}
-Version:    3.0.7
+Version:    3.0.8
 # Release Start
 Release:    1%{?dist}
 # Release End
@@ -61,6 +61,9 @@ rm -rf %{buildroot}
 %attr(0644,root,root)%{_unitdir}/%{name}.service
 
 %changelog
+* Fri May 10 2019 Will Johnson <wjohnson@whamcloud.com> - 3.0.8-1
+- Fix iml-srcmap-reverse socket to be wanted by iml-manager.target
+
 * Thu Jul 26 2018 Will Johnson <wjohnson@whamcloud.com> - 3.0.7-1
 - Systemd updates
 - Dockerize
